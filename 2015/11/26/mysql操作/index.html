@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta data -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="generator" content="huangxutao'blog">
+  <meta name="author" content="huangxutao">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <!-- page title -->
+  <title>Ubuntu下mysql 创建数据库和表的相关操作 | huangxutao&#39;blog</title>
+  <!-- page icon -->
+  <link rel="Shortcut Icon" href="/images/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+</head>
+
+<body>
+  <nav id="nav">
+  <a href="/"><img src="/images/logo.png" alt="" id="logo" class="none"></a>
+  <a href="https://github.com/huangxutao" target="_blank">GitHub</a>
+  <a href="javascript:;" id="menu"></a>
+</nav>
+
+  <header class="header">
+  <img src="/images/logo.png" alt="huangxutao">
+  <h1>huangxutao</h1>
+  <h2>当你的<span>能力</span>不足以支撑你的梦想时，请静下心来慢慢<span>积淀</span></h2>
+</header>
+
+  <section class="content">
+  <article class="article">
+    <div class="box">
+      <span class="date">2015-11-26|</span>
+      <span class="tags">
+      
+      
+        
+        <a href='/tags/mysql/'>mysql</a>
+        
+      
+      
+      </span>
+      <h1 class="title">Ubuntu下mysql 创建数据库和表的相关操作</h1>
+    </div>
+    <div class="article-nav"><h4>文章目录</h4>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu_u4E0Bmysql__u521B_u5EFA_u6570_u636E_u5E93_u548C_u8868_u7684_u76F8_u5173_u64CD_u4F5C_28_u4E00_29"><span class="toc-text">Ubuntu下mysql 创建数据库和表的相关操作(一)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu_u4E0Bmysql__u521B_u5EFA_u6570_u636E_u5E93_u548C_u8868_u7684_u76F8_u5173_u64CD_u4F5C_28_u4E8C_29"><span class="toc-text">Ubuntu下mysql 创建数据库和表的相关操作(二)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL_u8BED_u53E5_u603B_u7ED3"><span class="toc-text">SQL语句总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u8FDB_u5165_u6570_u636E_u5E93"><span class="toc-text">进入数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6570_u636E_u5E93_u64CD_u4F5C"><span class="toc-text">数据库操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u8868_u64CD_u4F5C"><span class="toc-text">表操作</span></a></li></ol></li></ol>
+</div>
+    <h3 id="Ubuntu_u4E0Bmysql__u521B_u5EFA_u6570_u636E_u5E93_u548C_u8868_u7684_u76F8_u5173_u64CD_u4F5C_28_u4E00_29"><a href="#Ubuntu_u4E0Bmysql__u521B_u5EFA_u6570_u636E_u5E93_u548C_u8868_u7684_u76F8_u5173_u64CD_u4F5C_28_u4E00_29" class="headerlink" title="Ubuntu下mysql 创建数据库和表的相关操作(一)"></a>Ubuntu下mysql 创建数据库和表的相关操作(一)</h3><p>1.进入数据库,先查看所有数据库<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">show</span> <span class="keyword">databases</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>2.然后创建GradeManager数据库<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">database</span> GradeManager;</span></span><br></pre></td></tr></table></figure></p>
+<p>3.再次查看本地数据库，检查是否以存在GradeManager数据库<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">show</span> <span class="keyword">databases</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>小结：成功创建GradeManager数据库，如下图所示：</p>
+<p><img src="/images/stp1.png" alt="Alt text"></p>
+<p>4.在已创建的GradeManager数据库中新建Worker表，首先选中GradeManager数据库<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> GradeManager</span><br></pre></td></tr></table></figure></p>
+<p>5.查看GradeManager数据库中所有表的情况(结果为空，因为还没有创建表)<br><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">show</span> <span class="built_in">tables</span>；</span><br></pre></td></tr></table></figure></p>
+<p>6.创建Worker表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> Worker(</span><br><span class="line">	Won <span class="built_in">char</span>(<span class="number">4</span>) Primary <span class="keyword">Key</span>,</span><br><span class="line">	Wname <span class="built_in">char</span>(<span class="number">8</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">	Sex <span class="built_in">char</span>(<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">	Brithday Datetime);</span></span><br></pre></td></tr></table></figure></p>
+<p>7.再次查看GradeManager数据库中所有表的情况(Worker表成功创建)<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">show</span> <span class="keyword">tables</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>8.查看Worker表中数据<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">describe</span> Worker;</span></span><br></pre></td></tr></table></figure></p>
+<p>9.退出mysql</p>
+<p>小结：成功创建GradeManager数据库，如下图所示：<br><img src="/images/stp2.png" alt="Alt text"></p>
+<hr>
+<hr>
+<h3 id="Ubuntu_u4E0Bmysql__u521B_u5EFA_u6570_u636E_u5E93_u548C_u8868_u7684_u76F8_u5173_u64CD_u4F5C_28_u4E8C_29"><a href="#Ubuntu_u4E0Bmysql__u521B_u5EFA_u6570_u636E_u5E93_u548C_u8868_u7684_u76F8_u5173_u64CD_u4F5C_28_u4E8C_29" class="headerlink" title="Ubuntu下mysql 创建数据库和表的相关操作(二)"></a>Ubuntu下mysql 创建数据库和表的相关操作(二)</h3><p>1.在GradeManager数据库中创建四张表：Student，Course，Class，Grade</p>
+<p>1.1创建Student表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> Student(</span><br><span class="line">	Sno <span class="built_in">char</span>(<span class="number">7</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span>,</span><br><span class="line">	Sname <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">	Ssex <span class="built_in">char</span>(<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">	Sage <span class="built_in">Smallint</span> <span class="literal">null</span>,</span><br><span class="line">	Clno <span class="built_in">char</span>(<span class="number">5</span>) <span class="keyword">not</span> <span class="literal">null</span>)</span><br><span class="line"><span class="keyword">charset</span>=gb2312;</span></span><br></pre></td></tr></table></figure></p>
+<p>1.2创建Course表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> Course(</span><br><span class="line">	Cno <span class="built_in">char</span>(<span class="number">1</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span>,</span><br><span class="line">    Cname <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    Credit <span class="built_in">smallint</span> <span class="literal">null</span>)</span><br><span class="line"><span class="keyword">charset</span>=gb2312;</span></span><br></pre></td></tr></table></figure></p>
+<p>1.3创建Class表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">Class</span>(</span><br><span class="line">	 Clno <span class="built_in">char</span>(<span class="number">5</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span>,</span><br><span class="line">     Speciality <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">     Inyear <span class="built_in">char</span>(<span class="number">4</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">     <span class="built_in">Number</span> <span class="built_in">integer</span> <span class="literal">null</span>,</span><br><span class="line">     Monitor <span class="built_in">char</span>(<span class="number">7</span>) <span class="literal">null</span>)</span><br><span class="line"><span class="keyword">charset</span>=gb2312;</span></span><br></pre></td></tr></table></figure></p>
+<p>1.4创建Grade表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> Grade(</span><br><span class="line">	Sno <span class="built_in">char</span>(<span class="number">7</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">	Cno <span class="built_in">char</span>(<span class="number">1</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    Gmark <span class="built_in">numeric</span>(<span class="number">4</span>,<span class="number">1</span>) <span class="literal">null</span>)</span><br><span class="line"><span class="keyword">charset</span>=gb2312;</span></span><br></pre></td></tr></table></figure></p>
+<p>2.检查此时GradeManager数据库中表的情况(成功创建四张表)<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">show</span> <span class="keyword">tables</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/1-1.png" alt="Alt text"></p>
+<p>3.往表中插入数据<br>3.1往Student表中插入数据<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span></span><br><span class="line">	(<span class="number">2000101</span>,<span class="string">"李勇"</span>,<span class="string">"男"</span>,<span class="number">20</span>,<span class="number">00311</span>),</span><br><span class="line">	(<span class="number">2000102</span>,<span class="string">"刘诗晨"</span>,<span class="string">"女"</span>,<span class="number">19</span>,<span class="number">00311</span>),</span><br><span class="line">	(<span class="number">2000102</span>,<span class="string">"刘诗晨"</span>,<span class="string">"女"</span>,<span class="number">19</span>,<span class="number">00311</span>),</span><br><span class="line">	(<span class="number">2000103</span>,<span class="string">"王一鸣"</span>,<span class="string">"男"</span>,<span class="number">20</span>,<span class="number">00312</span>),</span><br><span class="line">	(<span class="number">2000104</span>,<span class="string">"张婷婷"</span>,<span class="string">"女"</span>,<span class="number">21</span>,<span class="number">00312</span>),</span><br><span class="line">	(<span class="number">2001101</span>,<span class="string">"李勇敏"</span>,<span class="string">"女"</span>,<span class="number">19</span>,<span class="number">01311</span>),</span><br><span class="line">	(<span class="number">2001102</span>,<span class="string">"贾向东"</span>,<span class="string">"男"</span>,<span class="number">22</span>,<span class="number">01311</span>),</span><br><span class="line">	(<span class="number">2001103</span>,<span class="string">"陈宝玉"</span>,<span class="string">"男"</span>,<span class="number">20</span>,<span class="number">01311</span>),</span><br><span class="line">	(<span class="number">2001104</span>,<span class="string">"张逸凡"</span>,<span class="string">"男"</span>,<span class="number">21</span>,<span class="number">01311</span>);</span></span><br></pre></td></tr></table></figure></p>
+<p>3.2往Course表中插入数据<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> Course <span class="keyword">values</span></span><br><span class="line">	(<span class="number">1</span>,<span class="string">"数据库"</span>,<span class="number">4</span>),</span><br><span class="line">	(<span class="number">2</span>,<span class="string">"离散数学"</span>,<span class="number">3</span>),</span><br><span class="line">	(<span class="number">3</span>,<span class="string">"管理信息系统"</span>,<span class="number">2</span>),</span><br><span class="line">	(<span class="number">4</span>,<span class="string">"操作系统"</span>,<span class="number">4</span>),</span><br><span class="line">	(<span class="number">5</span>,<span class="string">"数据结构"</span>,<span class="number">4</span>),</span><br><span class="line">	(<span class="number">6</span>,<span class="string">"数据处理"</span>,<span class="number">2</span>),</span><br><span class="line">	(<span class="number">7</span>,<span class="string">"C语言"</span>,<span class="number">4</span>);</span></span><br></pre></td></tr></table></figure></p>
+<p>3.3往Class表中插入数据<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">Class</span> <span class="keyword">values</span></span><br><span class="line">	(<span class="number">00311</span>,<span class="string">"计算机软件"</span>,<span class="number">2000</span>,<span class="number">120</span>,<span class="number">2000101</span>),</span><br><span class="line">	(<span class="number">00312</span>,<span class="string">"计算机应用"</span>,<span class="number">2000</span>,<span class="number">140</span>,<span class="number">2000103</span>),</span><br><span class="line">	(<span class="number">01311</span>,<span class="string">"计算机软件"</span>,<span class="number">2001</span>,<span class="number">220</span>,<span class="number">2001103</span>);</span></span><br></pre></td></tr></table></figure></p>
+<p>3.4往Grade表中插入数据<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">insert into Grade values</span><br><span class="line">	(<span class="number">2000101,1,92</span>),</span><br><span class="line">	(<span class="number">2000101,3,88</span>),</span><br><span class="line">	(<span class="number">2000101,5,86</span>),</span><br><span class="line">	(<span class="number">2000102,1,78</span>),</span><br><span class="line">	(<span class="number">2000102,6,55</span>),</span><br><span class="line">	(<span class="number">2000103,3,65</span>),</span><br><span class="line">	(<span class="number">2000103,6,78</span>),</span><br><span class="line">	(<span class="number">2000103,5,66</span>),</span><br><span class="line">	(<span class="number">2000104,1,54</span>),</span><br><span class="line">	(<span class="number">2000104,6,83</span>),</span><br><span class="line">	(<span class="number">2001101,2,70</span>),</span><br><span class="line">	(<span class="number">2001101,4,65</span>),</span><br><span class="line">	(<span class="number">2001102,2,80</span>),</span><br><span class="line">	(<span class="number">2001102,4,90</span>),</span><br><span class="line">	(<span class="number">2000103,1,83</span>),</span><br><span class="line">	(<span class="number">2000103,2,76</span>),</span><br><span class="line">	(<span class="number">2000103,4,56</span>),</span><br><span class="line">	(<span class="number">2000103,7,88</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>4.查询表中的数据,以查询Student为例：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">select</span> * <span class="keyword">from</span> Student;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/1-2.png" alt="Alt text"></p>
+<p>5.给学生表增加一属性Nation，数据类型为Varchar(20)，并查看操作是否成功：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> Student <span class="keyword">add</span> Nation <span class="built_in">varchar</span>(<span class="number">20</span>);</span></span><br><span class="line"><span class="operator"><span class="keyword">select</span> * <span class="keyword">from</span> Student;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/2-1.png" alt="Alt text"></p>
+<p>6.删除学生表中新增属性Nation，并查看操作是否成功：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> Student <span class="keyword">drop</span> Nation;</span></span><br><span class="line"><span class="operator"><span class="keyword">select</span> * <span class="keyword">from</span> Student;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/2-2.png" alt="Alt text"></p>
+<p>7.向成绩表中插入记录(“2001110”,”3”,80)，并查看操作是否成功：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> Grade <span class="keyword">values</span> (<span class="string">"2001110"</span>,<span class="string">"3"</span>,<span class="number">80</span>);</span></span><br><span class="line"><span class="operator"><span class="keyword">select</span> * <span class="keyword">from</span> Grade;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/2-3.png" alt="Alt text"></p>
+<p>8.删除学号为“2001110”的学生的成绩记录，并查看操作是否成功：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">delete</span> <span class="keyword">from</span> Grade <span class="keyword">where</span> Sno=<span class="number">2001110</span>;</span></span><br><span class="line"><span class="operator"><span class="keyword">select</span> * <span class="keyword">from</span> Grade;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/2-4.png" alt="Alt text"></p>
+<p>9.在学生表Clno属性上创建一个名为IX_Class的索引，以班级号的升序排序，并查看操作是否成功：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">index</span> IX_Class <span class="keyword">on</span> Student(Clno <span class="keyword">desc</span>);</span></span><br><span class="line"><span class="operator"><span class="keyword">show</span> <span class="keyword">index</span> <span class="keyword">from</span> Student;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/2-5.png" alt="Alt text"></p>
+<p>10.删除IX_Class索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">drop</span> <span class="keyword">index</span> IX_Class <span class="keyword">on</span> Student;</span></span><br><span class="line"><span class="operator"><span class="keyword">show</span> <span class="keyword">index</span> <span class="keyword">from</span> Student;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/2-6.png" alt="Alt text"></p>
+<hr>
+<h2 id="SQL_u8BED_u53E5_u603B_u7ED3"><a href="#SQL_u8BED_u53E5_u603B_u7ED3" class="headerlink" title="SQL语句总结"></a>SQL语句总结</h2><h4 id="u8FDB_u5165_u6570_u636E_u5E93"><a href="#u8FDB_u5165_u6570_u636E_u5E93" class="headerlink" title="进入数据库"></a>进入数据库</h4><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h4 id="u6570_u636E_u5E93_u64CD_u4F5C"><a href="#u6570_u636E_u5E93_u64CD_u4F5C" class="headerlink" title="数据库操作"></a>数据库操作</h4><p>1.显示本地所有数据库<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">show</span> <span class="keyword">databases</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>2.创建数据库<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">database</span> &lt;db_name&gt;;</span></span><br></pre></td></tr></table></figure></p>
+<p>3.删除数据库<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">drop</span> <span class="keyword">database</span> &lt;db_name&gt;;</span></span><br></pre></td></tr></table></figure></p>
+<p>4.选择数据库<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"><span class="keyword">use</span> &lt;db_name&gt;</span>;</span><br></pre></td></tr></table></figure></p>
+<h4 id="u8868_u64CD_u4F5C"><a href="#u8868_u64CD_u4F5C" class="headerlink" title="表操作"></a>表操作</h4><p>1.显示当前数据库中所有的表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">show</span> <span class="keyword">tables</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>2.创建一张表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> &lt;tab_name&gt;(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="literal">null</span> ...,</span><br><span class="line">	...</span><br><span class="line">)<span class="keyword">charset</span>=gb2312;</span></span><br></pre></td></tr></table></figure></p>
+<p>3.删除表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">drop</span> <span class="keyword">table</span> &lt;tab_name&gt;;</span></span><br></pre></td></tr></table></figure></p>
+<p>4.显示表中的数据结构<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">describe</span> &lt;tab_name&gt;;</span></span><br></pre></td></tr></table></figure></p>
+<p>5.查询表中的记录<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select <span class="variable">&lt;列名&gt;</span> <span class="keyword">from</span> <span class="variable">&lt;tab_name&gt;</span> where <span class="variable">&lt;查询条件&gt;</span>；</span><br></pre></td></tr></table></figure></p>
+<p>5.1查询表中所有数据内容<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">select</span> * <span class="keyword">from</span> &lt;tab_name&gt;;</span></span><br></pre></td></tr></table></figure></p>
+<p>6.清空表中的记录<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">delete</span> <span class="keyword">from</span> &lt;tab_name&gt; <span class="keyword">where</span> &lt;删除条件&gt;;</span></span><br></pre></td></tr></table></figure></p>
+<p>7.向表中插入数据<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> &lt;tab_name&gt; <span class="keyword">values</span>(值<span class="number">1</span>,值<span class="number">2</span>,...);</span></span><br></pre></td></tr></table></figure></p>
+<p>7.1向表中批量插入数据<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into &lt;tab_name&gt; values(值<span class="number">1</span>,值<span class="number">2</span>,...),(值<span class="number">1</span>,值<span class="number">2</span>,...),(值<span class="number">1</span>,值<span class="number">2</span>,...)...;</span><br></pre></td></tr></table></figure></p>
+<p>8.更新表中的数据<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update <span class="variable">&lt;tab_name&gt;</span> <span class="built_in">set</span> <span class="variable">&lt;列名&gt;</span>=<span class="variable">&lt;新值&gt;</span> where <span class="variable">&lt;更新条件&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>9.添加列<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter <span class="built_in">table</span> <span class="variable">&lt;tab_name&gt;</span> add <span class="variable">&lt;列名&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>10.删除列<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter <span class="built_in">table</span> <span class="variable">&lt;tab_name&gt;</span> drop <span class="variable">&lt;列名&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>11.重命名表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">alter</span> <span class="keyword">table</span> &lt;tab_name&gt; <span class="keyword">rename</span> &lt;new_tab_name&gt;;</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>数据库原理上机总结，暂时就这些了，以后再补充吧。</p>
+
+  </article>
+  <div class="post-nav">
+    <div class="pre-post">
+      
+      <a href="/2015/11/27/node异步IO/">
+          ← Node学习笔记之异步I/O
+      </a>
+      
+    </div>
+    <div class="next-post">
+      
+      <a href="/2015/11/14/transform使用tip/">
+          关于CSS3转换-transform,使用tip →
+      </a>
+      
+    </div>
+  </div>
+  <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/11/26/mysql操作/" data-title="Ubuntu下mysql 创建数据库和表的相关操作" data-url="http://yoursite.com/2015/11/26/mysql操作/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"huangxutao"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+</section>
+
+
+  <aside id="side-nav">
+  <!-- 关闭按钮 -->
+  <div class="close"></div>
+  <ul>
+    <!-- home -->
+    <li><a href="/">Home</a></li>
+    <!-- archives -->
+    <li><a href="/archives">archives</a></li>
+    <!-- categories -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Categories</a>
+      <ul>
+        
+        <li>
+          <a href="/categories/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- tags -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Tags</a>
+      <ul>
+        
+        <li>
+          <a href="/tags/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- links -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Links</a>
+        <ul class="sb-submenu">
+            
+            <li><a href="http://huangbingbing.com" target="_blank">炳炳</a></li>
+            
+            <li><a href="http://makaiqian.com" target="_blank">麻组</a></li>
+            
+            <li><a href="http://wangxinze.com" target="_blank">大表哥</a></li>
+            
+            <li><a href="http://zhouyutao.com" target="_blank">涛哥</a></li>
+            
+        </ul>
+    </li>
+    
+  </ul>
+</aside>
+
+  <footer class="footer">
+  <div class="copy">
+    <p>&copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By huangxutao. All Rights Reserved.</p>
+    <p>Theme By <a href="http://huangxutao.github.io/" target="_blank">elliot</a></p>
+  </div>
+  <div class="connect">
+    
+    <a href="http://weibo.com/u/2844827443" title="weibo" target="_blank" class="icon-weibo"></a>
+    
+
+    
+    <a href="https://github.com/huangxutao" title="Github" target="_blank" class="icon-github"></a>
+    
+
+    
+    <a href="https://www.facebook.com/profile.php?id=100009457792215" title="facebook" target="_blank" class="icon-facebook"></a>
+    
+
+    
+    <a href="https://twitter.com/huangxutao" title="twitter" target="_blank" class="icon-twitter"></a>
+    
+  </div>
+</footer>
+
+  <div id="to-top" class="none">&#xe60a;</div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

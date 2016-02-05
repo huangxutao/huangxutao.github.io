@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta data -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="generator" content="huangxutao'blog">
+  <meta name="author" content="huangxutao">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <!-- page title -->
+  <title>Git命令小记 | huangxutao&#39;blog</title>
+  <!-- page icon -->
+  <link rel="Shortcut Icon" href="/images/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+</head>
+
+<body>
+  <nav id="nav">
+  <a href="/"><img src="/images/logo.png" alt="" id="logo" class="none"></a>
+  <a href="https://github.com/huangxutao" target="_blank">GitHub</a>
+  <a href="javascript:;" id="menu"></a>
+</nav>
+
+  <header class="header">
+  <img src="/images/logo.png" alt="huangxutao">
+  <h1>huangxutao</h1>
+  <h2>当你的<span>能力</span>不足以支撑你的梦想时，请静下心来慢慢<span>积淀</span></h2>
+</header>
+
+  <section class="content">
+  <article class="article">
+    <div class="box">
+      <span class="date">2015-12-18|</span>
+      <span class="tags">
+      
+      
+        
+        <a href='/tags/git/'>git</a>
+        
+      
+      
+      </span>
+      <h1 class="title">Git命令小记</h1>
+    </div>
+    <div class="article-nav"><h4>文章目录</h4>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6700_u8FD1_u5728_u9F13_u6363node_uFF0C_u7531_u4E8E_u90FD_u662F_u8BFE_u95F4_u96F6_u6563_u65F6_u95F4_u6765_u7801_u7684_uFF0C_u4E3A_u4E86_u4EE5_u9632_u4E0D_u53EF_u6297_u62D2_u529B_u5BFC_u81F4_u7684_u6570_u636E_u4E22_u5931_uFF0C_u6211_u5C31_u628A_u8FD9_u4E2Ademo_u653E_u5230github_u4E0A_uFF0C_u81EA_u7136_u5C31_u63A5_u89E6_u5230_u4E86git_uFF0C_u5728_u6B64_u5C0F_u8BB0_u4E00_u4E0B_uFF08_u4E0D_u4E00_u5B9A_u5168_u9762_uFF0C_u53EA_u662F_u5F53_u4E2D_u6211_u6240_u9047_u5230_u7684_u4E00_u4E9Bgit_u547D_u4EE4_uFF09_u3002"><span class="toc-text">最近在鼓捣node，由于都是课间零散时间来码的，为了以防不可抗拒力导致的数据丢失，我就把这个demo放到github上，自然就接触到了git，在此小记一下（不一定全面，只是当中我所遇到的一些git命令）。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_u521B_u5EFA_u65B0_u4ED3_u5E93"><span class="toc-text">1.创建新仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_u8FDE_u63A5_u5230_u8FDC_u7A0B_u670D_u52A1_u5668"><span class="toc-text">2.连接到远程服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_u63A8_u9001_u6539_u52A8"><span class="toc-text">3.推送改动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1_u8BA1_u5212_u6539_u52A8_uFF0C_u5C06_u6587_u4EF6_u6DFB_u52A0_u5230_u7F13_u5B58_u533A"><span class="toc-text">3.1计划改动，将文件添加到缓存区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2_u6B63_u5F0F_u63D0_u4EA4_u6539_u52A8"><span class="toc-text">3.2正式提交改动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3_u63D0_u4EA4_u5230_u8FDC_u7A0B_uFF08github_uFF09_u4ED3_u5E93"><span class="toc-text">3.3提交到远程（github）仓库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_u67E5_u770B_u5F53_u524Dgit_u72B6_u6001"><span class="toc-text">4.查看当前git状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5_u66F4_u6362_u8FDC_u7A0B_u4ED3_u5E93"><span class="toc-text">5更换远程仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-_u66F4_u65B0_u4E0E_u5408_u5E76"><span class="toc-text">6.更新与合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-_u3002_u3002_u3002_u3002"><span class="toc-text">7.。。。。</span></a></li></ol>
+</div>
+    <h3 id="u6700_u8FD1_u5728_u9F13_u6363node_uFF0C_u7531_u4E8E_u90FD_u662F_u8BFE_u95F4_u96F6_u6563_u65F6_u95F4_u6765_u7801_u7684_uFF0C_u4E3A_u4E86_u4EE5_u9632_u4E0D_u53EF_u6297_u62D2_u529B_u5BFC_u81F4_u7684_u6570_u636E_u4E22_u5931_uFF0C_u6211_u5C31_u628A_u8FD9_u4E2Ademo_u653E_u5230github_u4E0A_uFF0C_u81EA_u7136_u5C31_u63A5_u89E6_u5230_u4E86git_uFF0C_u5728_u6B64_u5C0F_u8BB0_u4E00_u4E0B_uFF08_u4E0D_u4E00_u5B9A_u5168_u9762_uFF0C_u53EA_u662F_u5F53_u4E2D_u6211_u6240_u9047_u5230_u7684_u4E00_u4E9Bgit_u547D_u4EE4_uFF09_u3002"><a href="#u6700_u8FD1_u5728_u9F13_u6363node_uFF0C_u7531_u4E8E_u90FD_u662F_u8BFE_u95F4_u96F6_u6563_u65F6_u95F4_u6765_u7801_u7684_uFF0C_u4E3A_u4E86_u4EE5_u9632_u4E0D_u53EF_u6297_u62D2_u529B_u5BFC_u81F4_u7684_u6570_u636E_u4E22_u5931_uFF0C_u6211_u5C31_u628A_u8FD9_u4E2Ademo_u653E_u5230github_u4E0A_uFF0C_u81EA_u7136_u5C31_u63A5_u89E6_u5230_u4E86git_uFF0C_u5728_u6B64_u5C0F_u8BB0_u4E00_u4E0B_uFF08_u4E0D_u4E00_u5B9A_u5168_u9762_uFF0C_u53EA_u662F_u5F53_u4E2D_u6211_u6240_u9047_u5230_u7684_u4E00_u4E9Bgit_u547D_u4EE4_uFF09_u3002" class="headerlink" title="最近在鼓捣node，由于都是课间零散时间来码的，为了以防不可抗拒力导致的数据丢失，我就把这个demo放到github上，自然就接触到了git，在此小记一下（不一定全面，只是当中我所遇到的一些git命令）。"></a>最近在鼓捣node，由于都是课间零散时间来码的，为了以防不可抗拒力导致的数据丢失，我就把这个demo放到github上，自然就接触到了git，在此小记一下（不一定全面，只是当中我所遇到的一些git命令）。</h3><h3 id="1-_u521B_u5EFA_u65B0_u4ED3_u5E93"><a href="#1-_u521B_u5EFA_u65B0_u4ED3_u5E93" class="headerlink" title="1.创建新仓库"></a>1.创建新仓库</h3><p>创建项目文件夹，打开，然后执行：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">git</span> init</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-_u8FDE_u63A5_u5230_u8FDC_u7A0B_u670D_u52A1_u5668"><a href="#2-_u8FDE_u63A5_u5230_u8FDC_u7A0B_u670D_u52A1_u5668" class="headerlink" title="2.连接到远程服务器"></a>2.连接到远程服务器</h3><p>这里的远程服务器就是我的github仓库地址了，执行：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">add</span> origin http<span class="variable">s:</span>//github.<span class="keyword">com</span>/huangxutao/express-frame-practice.git</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-_u63A8_u9001_u6539_u52A8"><a href="#3-_u63A8_u9001_u6539_u52A8" class="headerlink" title="3.推送改动"></a>3.推送改动</h3><h4 id="3-1_u8BA1_u5212_u6539_u52A8_uFF0C_u5C06_u6587_u4EF6_u6DFB_u52A0_u5230_u7F13_u5B58_u533A"><a href="#3-1_u8BA1_u5212_u6539_u52A8_uFF0C_u5C06_u6587_u4EF6_u6DFB_u52A0_u5230_u7F13_u5B58_u533A" class="headerlink" title="3.1计划改动，将文件添加到缓存区"></a>3.1计划改动，将文件添加到缓存区</h4><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指定文件</span></span><br><span class="line">git <span class="keyword">add</span> &lt;filename&gt;</span><br><span class="line"><span class="comment">// 全部文件</span></span><br><span class="line">git <span class="keyword">add</span> *</span><br></pre></td></tr></table></figure>
+<h4 id="3-2_u6B63_u5F0F_u63D0_u4EA4_u6539_u52A8"><a href="#3-2_u6B63_u5F0F_u63D0_u4EA4_u6539_u52A8" class="headerlink" title="3.2正式提交改动"></a>3.2正式提交改动</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="operator"><span class="keyword">commit</span> -<span class="keyword">m</span> <span class="string">"提交信息"</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="3-3_u63D0_u4EA4_u5230_u8FDC_u7A0B_uFF08github_uFF09_u4ED3_u5E93"><a href="#3-3_u63D0_u4EA4_u5230_u8FDC_u7A0B_uFF08github_uFF09_u4ED3_u5E93" class="headerlink" title="3.3提交到远程（github）仓库"></a>3.3提交到远程（github）仓库</h4><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">git</span> <span class="keyword">push </span>origin master</span><br></pre></td></tr></table></figure>
+<p>可以将master换成你想推送的任何分支</p>
+<h3 id="4-_u67E5_u770B_u5F53_u524Dgit_u72B6_u6001"><a href="#4-_u67E5_u770B_u5F53_u524Dgit_u72B6_u6001" class="headerlink" title="4.查看当前git状态"></a>4.查看当前git状态</h3><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">status</span></span><br></pre></td></tr></table></figure>
+<h3 id="5_u66F4_u6362_u8FDC_u7A0B_u4ED3_u5E93"><a href="#5_u66F4_u6362_u8FDC_u7A0B_u4ED3_u5E93" class="headerlink" title="5更换远程仓库"></a>5更换远程仓库</h3><p>期间github上手动改了仓库名称，后来再次在本地提交改动时悲剧了，终端提示错误，发现提交的远程仓库名称依旧是之前为改动的名称，然后更换远程仓库，执行：<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先删</span></span><br><span class="line">git remote rm origin</span><br><span class="line"><span class="comment">// 后添</span></span><br><span class="line">git remote <span class="keyword">add</span> origin &lt;新仓库地址&gt;</span><br></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remte origin <span class="operator"><span class="keyword">set</span>-<span class="keyword">url</span> &lt;新仓库地址&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="6-_u66F4_u65B0_u4E0E_u5408_u5E76"><a href="#6-_u66F4_u65B0_u4E0E_u5408_u5E76" class="headerlink" title="6.更新与合并"></a>6.更新与合并</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin <span class="literal">master</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-_u3002_u3002_u3002_u3002"><a href="#7-_u3002_u3002_u3002_u3002" class="headerlink" title="7.。。。。"></a>7.。。。。</h3><p>以后遇到在补充了^_^</p>
+
+  </article>
+  <div class="post-nav">
+    <div class="pre-post">
+      
+    </div>
+    <div class="next-post">
+      
+      <a href="/2015/11/27/node异步IO/">
+          Node学习笔记之异步I/O →
+      </a>
+      
+    </div>
+  </div>
+  <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/12/18/Git命令小记/" data-title="Git命令小记" data-url="http://yoursite.com/2015/12/18/Git命令小记/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"huangxutao"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+</section>
+
+
+  <aside id="side-nav">
+  <!-- 关闭按钮 -->
+  <div class="close"></div>
+  <ul>
+    <!-- home -->
+    <li><a href="/">Home</a></li>
+    <!-- archives -->
+    <li><a href="/archives">archives</a></li>
+    <!-- categories -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Categories</a>
+      <ul>
+        
+        <li>
+          <a href="/categories/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- tags -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Tags</a>
+      <ul>
+        
+        <li>
+          <a href="/tags/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- links -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Links</a>
+        <ul class="sb-submenu">
+            
+            <li><a href="http://huangbingbing.com" target="_blank">炳炳</a></li>
+            
+            <li><a href="http://makaiqian.com" target="_blank">麻组</a></li>
+            
+            <li><a href="http://wangxinze.com" target="_blank">大表哥</a></li>
+            
+            <li><a href="http://zhouyutao.com" target="_blank">涛哥</a></li>
+            
+        </ul>
+    </li>
+    
+  </ul>
+</aside>
+
+  <footer class="footer">
+  <div class="copy">
+    <p>&copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By huangxutao. All Rights Reserved.</p>
+    <p>Theme By <a href="http://huangxutao.github.io/" target="_blank">elliot</a></p>
+  </div>
+  <div class="connect">
+    
+    <a href="http://weibo.com/u/2844827443" title="weibo" target="_blank" class="icon-weibo"></a>
+    
+
+    
+    <a href="https://github.com/huangxutao" title="Github" target="_blank" class="icon-github"></a>
+    
+
+    
+    <a href="https://www.facebook.com/profile.php?id=100009457792215" title="facebook" target="_blank" class="icon-facebook"></a>
+    
+
+    
+    <a href="https://twitter.com/huangxutao" title="twitter" target="_blank" class="icon-twitter"></a>
+    
+  </div>
+</footer>
+
+  <div id="to-top" class="none">&#xe60a;</div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

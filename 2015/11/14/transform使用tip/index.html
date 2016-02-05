@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta data -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="generator" content="huangxutao'blog">
+  <meta name="author" content="huangxutao">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <!-- page title -->
+  <title>关于CSS3转换-transform,使用tip | huangxutao&#39;blog</title>
+  <!-- page icon -->
+  <link rel="Shortcut Icon" href="/images/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+</head>
+
+<body>
+  <nav id="nav">
+  <a href="/"><img src="/images/logo.png" alt="" id="logo" class="none"></a>
+  <a href="https://github.com/huangxutao" target="_blank">GitHub</a>
+  <a href="javascript:;" id="menu"></a>
+</nav>
+
+  <header class="header">
+  <img src="/images/logo.png" alt="huangxutao">
+  <h1>huangxutao</h1>
+  <h2>当你的<span>能力</span>不足以支撑你的梦想时，请静下心来慢慢<span>积淀</span></h2>
+</header>
+
+  <section class="content">
+  <article class="article">
+    <div class="box">
+      <span class="date">2015-11-14|</span>
+      <span class="tags">
+      
+      
+        
+        <a href='/tags/css3/'>css3</a>
+        
+      
+      
+      </span>
+      <h1 class="title">关于CSS3转换-transform,使用tip</h1>
+    </div>
+    <div class="article-nav"><h4>文章目录</h4>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem_3A"><span class="toc-text">Problem:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#transform_u5728_u5BF9_u975E_u5757_u7EA7_u5143_u7D20_u8FDB_u884C_u53D8_u6362_u65F6_2C_u65E0_u6CD5_u6B63_u5E38_u5DE5_u4F5C_28_u6D4B_u8BD5_u73AF_u5883chrome_46-0_u2026_2Cfirefox42-0_u2026_29_uFF1F_uFF1F"><span class="toc-text">transform在对非块级元素进行变换时,无法正常工作(测试环境chrome 46.0…,firefox42.0…)？？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eg_3A_u5982_u4E0B_2C_u5BF9_u4E24_u4E2Aspan_u90FD_u8FDB_u884Ctransform_3A_translate3d_28_40px_2C_0_2C_0_29_u53D8_u6362_uFF0C_u5176_u4E2D_u7B2C_u4E00_u4E2Aspan_u4E3A_u9ED8_u8BA4_u7684_u5185_u8054_u5143_u7D20_uFF0C_u7B2C_u4E8C_u4E2A_u58F0_u660E_u4E3A_u5757_u7EA7_u5143_u7D20_u3002_u663E_u7136_uFF0C_u7B2C_u4E00_u4E2A_u5E76_u672A_u5982_u671F_u671B_u7684_u90A3_u6837_u5411_u53F3_u5E73_u79FB40px"><span class="toc-text">eg:如下,对两个span都进行transform: translate3d( 40px, 0, 0)变换，其中第一个span为默认的内联元素，第二个声明为块级元素。显然，第一个并未如期望的那样向右平移40px.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4F46_u662F_u51E1_u4E8B_u90FD_u6709_u7279_u4F8B_uFF0CIE_u90A3_u5751_u7239_u7684_u73A9_u610F_uFF0C_u4E5F_u6709_u4E0D_u5751_u7239_u7684_u65F6_u5019_uFF0C_u4E0D_u7BA1_u662F_u5185_u8054_u5143_u7D20_u8FD8_u662F_u5757_u7EA7_u5143_u7D20_uFF0Ctransform_u90FD_u80FD_u6B63_u5E38_u5DE5_u4F5C_u3002"><span class="toc-text">但是凡事都有特例，IE那坑爹的玩意，也有不坑爹的时候，不管是内联元素还是块级元素，transform都能正常工作。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u53EF_u80FD_u7684_u4F7F_u7528_u573A_u666F_uFF1A"><span class="toc-text">可能的使用场景：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u989D_u597D_u5427_uFF0C_u5DEE_u70B9_u81EA_u5DF1_u628A_u81EA_u5DF1_u5751_u4E86_uFF0C_u55EF_u3002_u3002_u3002_u3002_u8FD9_u662F_u5728MDN_u4E0A_u7684_u63CF_u8FF0_28_u94FE_u63A5_3Ahttps_3A//developer-mozilla-org/zh-CN/docs/Web/CSS/transform_23_u6982_u8FF0_29"><span class="toc-text">额好吧，差点自己把自己坑了，嗯。。。。这是在MDN上的描述(链接:https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform#概述)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6CA1_u9519transform_u9002_u7528_u5143_u7D20_3A_transformable_elements_2C_u989D_u597D_u5427_u767E_u5EA6_2C_u8C37_u6B4C_u4E00_u901A_u51C0_u662F_u4E00_u4E9B_u4E0D_u76F8_u5E72_u7684_u4E1C_u897F_u3002"><span class="toc-text">没错transform适用元素: transformable elements,额好吧百度,谷歌一通净是一些不相干的东西。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6700_u7EC8_u5728_u5BC6_u5BC6_u9EBB_u9EBB_u7684W3C_u4E0A_u627E_u5230_u8FD9_u6837_u7684_u63CF_u8FF0_28_u94FE_u63A5_3Ahttp_3A//www-w3-org/TR/css3-transforms/_23transformable-element_29"><span class="toc-text">最终在密密麻麻的W3C上找到这样的描述(链接:http://www.w3.org/TR/css3-transforms/#transformable-element)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5212_u7EA2_u7EBF_u5904_uFF1Awhich_is_either_a_block-level_or_atomic_inline-level_element_2C_or_whose__26_2339_3Bdisplay_26_2339_3B_property_computes_to__26_2339_3Btable-row_26_2339_3B_2C__26_2339_3Btable-row-group_26_2339_3B_2C__26_2339_3Btable-header-group_26_2339_3B_2C__26_2339_3Btable-footer-group_26_2339_3B_2C__26_2339_3Btable-cell_26_2339_3B_2C_or__26_2339_3Btable-caption_26_2339_3B"><span class="toc-text">划红线处：which is either a block-level or atomic inline-level element, or whose 'display' property computes to 'table-row', 'table-row-group', 'table-header-group', 'table-footer-group', 'table-cell', or 'table-caption'</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E5F_u5C31_u662F_u8BF4transform_u9002_u7528_u5143_u7D20_u4E3A_u5757_u7EA7_u5143_u7D20_u6216_u8005_u884C_u5185_u5757_u7EA7_u5143_u7D20_u3002"><span class="toc-text">也就是说transform适用元素为块级元素或者行内块级元素。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4EE5_u4E0A_u5747_u4E3A_u4E2A_u4EBA_u5B9E_u8DF5_u6240_u5F97_uFF0C_u5982_u6709_u4E0D_u8DB3_uFF0C_u8FD8_u671B_u8865_u5145_u3002_u3002"><span class="toc-text">以上均为个人实践所得，如有不足，还望补充。。</span></a></li></ol></li></ol>
+</div>
+    <h2 id="Problem_3A"><a href="#Problem_3A" class="headerlink" title="Problem:"></a><strong>Problem:</strong></h2><h3 id="transform_u5728_u5BF9_u975E_u5757_u7EA7_u5143_u7D20_u8FDB_u884C_u53D8_u6362_u65F6_2C_u65E0_u6CD5_u6B63_u5E38_u5DE5_u4F5C_28_u6D4B_u8BD5_u73AF_u5883chrome_46-0_u2026_2Cfirefox42-0_u2026_29_uFF1F_uFF1F"><a href="#transform_u5728_u5BF9_u975E_u5757_u7EA7_u5143_u7D20_u8FDB_u884C_u53D8_u6362_u65F6_2C_u65E0_u6CD5_u6B63_u5E38_u5DE5_u4F5C_28_u6D4B_u8BD5_u73AF_u5883chrome_46-0_u2026_2Cfirefox42-0_u2026_29_uFF1F_uFF1F" class="headerlink" title="transform在对非块级元素进行变换时,无法正常工作(测试环境chrome 46.0…,firefox42.0…)？？"></a><strong>transform在对非块级元素进行变换时,无法正常工作(测试环境chrome 46.0…,firefox42.0…)？？</strong></h3><h3 id="eg_3A_u5982_u4E0B_2C_u5BF9_u4E24_u4E2Aspan_u90FD_u8FDB_u884Ctransform_3A_translate3d_28_40px_2C_0_2C_0_29_u53D8_u6362_uFF0C_u5176_u4E2D_u7B2C_u4E00_u4E2Aspan_u4E3A_u9ED8_u8BA4_u7684_u5185_u8054_u5143_u7D20_uFF0C_u7B2C_u4E8C_u4E2A_u58F0_u660E_u4E3A_u5757_u7EA7_u5143_u7D20_u3002_u663E_u7136_uFF0C_u7B2C_u4E00_u4E2A_u5E76_u672A_u5982_u671F_u671B_u7684_u90A3_u6837_u5411_u53F3_u5E73_u79FB40px"><a href="#eg_3A_u5982_u4E0B_2C_u5BF9_u4E24_u4E2Aspan_u90FD_u8FDB_u884Ctransform_3A_translate3d_28_40px_2C_0_2C_0_29_u53D8_u6362_uFF0C_u5176_u4E2D_u7B2C_u4E00_u4E2Aspan_u4E3A_u9ED8_u8BA4_u7684_u5185_u8054_u5143_u7D20_uFF0C_u7B2C_u4E8C_u4E2A_u58F0_u660E_u4E3A_u5757_u7EA7_u5143_u7D20_u3002_u663E_u7136_uFF0C_u7B2C_u4E00_u4E2A_u5E76_u672A_u5982_u671F_u671B_u7684_u90A3_u6837_u5411_u53F3_u5E73_u79FB40px" class="headerlink" title="eg:如下,对两个span都进行transform: translate3d( 40px, 0, 0)变换，其中第一个span为默认的内联元素，第二个声明为块级元素。显然，第一个并未如期望的那样向右平移40px."></a>eg:如下,对两个<code>span</code>都进行<code>transform: translate3d( 40px, 0, 0)</code>变换，其中第一个span为默认的内联元素，第二个声明为块级元素。显然，第一个并未如期望的那样向右平移<code>40px</code>.</h3><p data-height="268" data-theme-id="20640" data-slug-hash="avjxBg" data-default-tab="result" data-user="huangxutao" class="codepen">See the Pen <a href="http://codepen.io/huangxutao/pen/avjxBg/" target="_blank" rel="external">transform对于块级元素和内联元素</a> by elliot (<a href="http://codepen.io/huangxutao" target="_blank" rel="external">@huangxutao</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p>
+
+<h3 id="u4F46_u662F_u51E1_u4E8B_u90FD_u6709_u7279_u4F8B_uFF0CIE_u90A3_u5751_u7239_u7684_u73A9_u610F_uFF0C_u4E5F_u6709_u4E0D_u5751_u7239_u7684_u65F6_u5019_uFF0C_u4E0D_u7BA1_u662F_u5185_u8054_u5143_u7D20_u8FD8_u662F_u5757_u7EA7_u5143_u7D20_uFF0Ctransform_u90FD_u80FD_u6B63_u5E38_u5DE5_u4F5C_u3002"><a href="#u4F46_u662F_u51E1_u4E8B_u90FD_u6709_u7279_u4F8B_uFF0CIE_u90A3_u5751_u7239_u7684_u73A9_u610F_uFF0C_u4E5F_u6709_u4E0D_u5751_u7239_u7684_u65F6_u5019_uFF0C_u4E0D_u7BA1_u662F_u5185_u8054_u5143_u7D20_u8FD8_u662F_u5757_u7EA7_u5143_u7D20_uFF0Ctransform_u90FD_u80FD_u6B63_u5E38_u5DE5_u4F5C_u3002" class="headerlink" title="但是凡事都有特例，IE那坑爹的玩意，也有不坑爹的时候，不管是内联元素还是块级元素，transform都能正常工作。"></a>但是凡事都有特例，IE那坑爹的玩意，也有不坑爹的时候，不管是内联元素还是块级元素，transform都能正常工作。</h3><hr>
+<h3 id="u53EF_u80FD_u7684_u4F7F_u7528_u573A_u666F_uFF1A"><a href="#u53EF_u80FD_u7684_u4F7F_u7528_u573A_u666F_uFF1A" class="headerlink" title="可能的使用场景："></a><strong>可能的使用场景：</strong></h3><ul>
+<li><strong>对文字做一些交互动画</strong></li>
+<li>如下：仅作demo演示不代表个人审美观(在firefox下打开更直观哦)</li>
+</ul>
+<p data-height="600" data-theme-id="20640" data-slug-hash="xwJozy" data-default-tab="result" data-user="huangxutao" class="codepen">See the Pen <a href="http://codepen.io/huangxutao/pen/xwJozy/" target="_blank" rel="external">transform使用tip</a> by elliot (<a href="http://codepen.io/huangxutao" target="_blank" rel="external">@huangxutao</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p>
+
+<hr>
+<p><del>也不知道是浏览器对css3的支持不够全面，还是transform属性本身的特性 造就的bug(个人比较倾向前者)，如果有不足或错误，欢迎补充^_^ </del></p>
+<hr>
+<h4 id="u989D_u597D_u5427_uFF0C_u5DEE_u70B9_u81EA_u5DF1_u628A_u81EA_u5DF1_u5751_u4E86_uFF0C_u55EF_u3002_u3002_u3002_u3002_u8FD9_u662F_u5728MDN_u4E0A_u7684_u63CF_u8FF0_28_u94FE_u63A5_3Ahttps_3A//developer-mozilla-org/zh-CN/docs/Web/CSS/transform_23_u6982_u8FF0_29"><a href="#u989D_u597D_u5427_uFF0C_u5DEE_u70B9_u81EA_u5DF1_u628A_u81EA_u5DF1_u5751_u4E86_uFF0C_u55EF_u3002_u3002_u3002_u3002_u8FD9_u662F_u5728MDN_u4E0A_u7684_u63CF_u8FF0_28_u94FE_u63A5_3Ahttps_3A//developer-mozilla-org/zh-CN/docs/Web/CSS/transform_23_u6982_u8FF0_29" class="headerlink" title="额好吧，差点自己把自己坑了，嗯。。。。这是在MDN上的描述(链接:https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform#概述)"></a>额好吧，差点自己把自己坑了，嗯。。。。这是在MDN上的描述(链接:<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform#概述" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform#概述</a>)</h4><p><img src="/img/transform1.png" alt=""> </p>
+<h4 id="u6CA1_u9519transform_u9002_u7528_u5143_u7D20_3A_transformable_elements_2C_u989D_u597D_u5427_u767E_u5EA6_2C_u8C37_u6B4C_u4E00_u901A_u51C0_u662F_u4E00_u4E9B_u4E0D_u76F8_u5E72_u7684_u4E1C_u897F_u3002"><a href="#u6CA1_u9519transform_u9002_u7528_u5143_u7D20_3A_transformable_elements_2C_u989D_u597D_u5427_u767E_u5EA6_2C_u8C37_u6B4C_u4E00_u901A_u51C0_u662F_u4E00_u4E9B_u4E0D_u76F8_u5E72_u7684_u4E1C_u897F_u3002" class="headerlink" title="没错transform适用元素: transformable elements,额好吧百度,谷歌一通净是一些不相干的东西。"></a>没错transform适用元素: transformable elements,额好吧百度,谷歌一通净是一些不相干的东西。</h4><h4 id="u6700_u7EC8_u5728_u5BC6_u5BC6_u9EBB_u9EBB_u7684W3C_u4E0A_u627E_u5230_u8FD9_u6837_u7684_u63CF_u8FF0_28_u94FE_u63A5_3Ahttp_3A//www-w3-org/TR/css3-transforms/_23transformable-element_29"><a href="#u6700_u7EC8_u5728_u5BC6_u5BC6_u9EBB_u9EBB_u7684W3C_u4E0A_u627E_u5230_u8FD9_u6837_u7684_u63CF_u8FF0_28_u94FE_u63A5_3Ahttp_3A//www-w3-org/TR/css3-transforms/_23transformable-element_29" class="headerlink" title="最终在密密麻麻的W3C上找到这样的描述(链接:http://www.w3.org/TR/css3-transforms/#transformable-element)"></a>最终在密密麻麻的W3C上找到这样的描述(链接:<a href="http://www.w3.org/TR/css3-transforms/#transformable-element" target="_blank" rel="external">http://www.w3.org/TR/css3-transforms/#transformable-element</a>)</h4><p><img src="/img/transform2.png" alt=""> </p>
+<h4 id="u5212_u7EA2_u7EBF_u5904_uFF1Awhich_is_either_a_block-level_or_atomic_inline-level_element_2C_or_whose__26_2339_3Bdisplay_26_2339_3B_property_computes_to__26_2339_3Btable-row_26_2339_3B_2C__26_2339_3Btable-row-group_26_2339_3B_2C__26_2339_3Btable-header-group_26_2339_3B_2C__26_2339_3Btable-footer-group_26_2339_3B_2C__26_2339_3Btable-cell_26_2339_3B_2C_or__26_2339_3Btable-caption_26_2339_3B"><a href="#u5212_u7EA2_u7EBF_u5904_uFF1Awhich_is_either_a_block-level_or_atomic_inline-level_element_2C_or_whose__26_2339_3Bdisplay_26_2339_3B_property_computes_to__26_2339_3Btable-row_26_2339_3B_2C__26_2339_3Btable-row-group_26_2339_3B_2C__26_2339_3Btable-header-group_26_2339_3B_2C__26_2339_3Btable-footer-group_26_2339_3B_2C__26_2339_3Btable-cell_26_2339_3B_2C_or__26_2339_3Btable-caption_26_2339_3B" class="headerlink" title="划红线处：which is either a block-level or atomic inline-level element, or whose &#39;display&#39; property computes to &#39;table-row&#39;, &#39;table-row-group&#39;, &#39;table-header-group&#39;, &#39;table-footer-group&#39;, &#39;table-cell&#39;, or &#39;table-caption&#39;"></a>划红线处：<code>which is either a block-level or atomic inline-level element, or whose &#39;display&#39; property computes to &#39;table-row&#39;, &#39;table-row-group&#39;, &#39;table-header-group&#39;, &#39;table-footer-group&#39;, &#39;table-cell&#39;, or &#39;table-caption&#39;</code></h4><h2 id="u4E5F_u5C31_u662F_u8BF4transform_u9002_u7528_u5143_u7D20_u4E3A_u5757_u7EA7_u5143_u7D20_u6216_u8005_u884C_u5185_u5757_u7EA7_u5143_u7D20_u3002"><a href="#u4E5F_u5C31_u662F_u8BF4transform_u9002_u7528_u5143_u7D20_u4E3A_u5757_u7EA7_u5143_u7D20_u6216_u8005_u884C_u5185_u5757_u7EA7_u5143_u7D20_u3002" class="headerlink" title="也就是说transform适用元素为块级元素或者行内块级元素。"></a>也就是说transform适用元素为块级元素或者行内块级元素。</h2><hr>
+<h3 id="u4EE5_u4E0A_u5747_u4E3A_u4E2A_u4EBA_u5B9E_u8DF5_u6240_u5F97_uFF0C_u5982_u6709_u4E0D_u8DB3_uFF0C_u8FD8_u671B_u8865_u5145_u3002_u3002"><a href="#u4EE5_u4E0A_u5747_u4E3A_u4E2A_u4EBA_u5B9E_u8DF5_u6240_u5F97_uFF0C_u5982_u6709_u4E0D_u8DB3_uFF0C_u8FD8_u671B_u8865_u5145_u3002_u3002" class="headerlink" title="以上均为个人实践所得，如有不足，还望补充。。"></a>以上均为个人实践所得，如有不足，还望补充。。</h3><hr>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+  </article>
+  <div class="post-nav">
+    <div class="pre-post">
+      
+      <a href="/2015/11/26/mysql操作/">
+          ← Ubuntu下mysql 创建数据库和表的相关操作
+      </a>
+      
+    </div>
+    <div class="next-post">
+      
+    </div>
+  </div>
+  <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/11/14/transform使用tip/" data-title="关于CSS3转换-transform,使用tip" data-url="http://yoursite.com/2015/11/14/transform使用tip/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"huangxutao"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+</section>
+
+
+  <aside id="side-nav">
+  <!-- 关闭按钮 -->
+  <div class="close"></div>
+  <ul>
+    <!-- home -->
+    <li><a href="/">Home</a></li>
+    <!-- archives -->
+    <li><a href="/archives">archives</a></li>
+    <!-- categories -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Categories</a>
+      <ul>
+        
+        <li>
+          <a href="/categories/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- tags -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Tags</a>
+      <ul>
+        
+        <li>
+          <a href="/tags/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- links -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Links</a>
+        <ul class="sb-submenu">
+            
+            <li><a href="http://huangbingbing.com" target="_blank">炳炳</a></li>
+            
+            <li><a href="http://makaiqian.com" target="_blank">麻组</a></li>
+            
+            <li><a href="http://wangxinze.com" target="_blank">大表哥</a></li>
+            
+            <li><a href="http://zhouyutao.com" target="_blank">涛哥</a></li>
+            
+        </ul>
+    </li>
+    
+  </ul>
+</aside>
+
+  <footer class="footer">
+  <div class="copy">
+    <p>&copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By huangxutao. All Rights Reserved.</p>
+    <p>Theme By <a href="http://huangxutao.github.io/" target="_blank">elliot</a></p>
+  </div>
+  <div class="connect">
+    
+    <a href="http://weibo.com/u/2844827443" title="weibo" target="_blank" class="icon-weibo"></a>
+    
+
+    
+    <a href="https://github.com/huangxutao" title="Github" target="_blank" class="icon-github"></a>
+    
+
+    
+    <a href="https://www.facebook.com/profile.php?id=100009457792215" title="facebook" target="_blank" class="icon-facebook"></a>
+    
+
+    
+    <a href="https://twitter.com/huangxutao" title="twitter" target="_blank" class="icon-twitter"></a>
+    
+  </div>
+</footer>
+
+  <div id="to-top" class="none">&#xe60a;</div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

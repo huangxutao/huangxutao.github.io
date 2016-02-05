@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta data -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="generator" content="huangxutao'blog">
+  <meta name="author" content="huangxutao">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <!-- page title -->
+  <title>Node学习笔记之异步I/O | huangxutao&#39;blog</title>
+  <!-- page icon -->
+  <link rel="Shortcut Icon" href="/images/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+</head>
+
+<body>
+  <nav id="nav">
+  <a href="/"><img src="/images/logo.png" alt="" id="logo" class="none"></a>
+  <a href="https://github.com/huangxutao" target="_blank">GitHub</a>
+  <a href="javascript:;" id="menu"></a>
+</nav>
+
+  <header class="header">
+  <img src="/images/logo.png" alt="huangxutao">
+  <h1>huangxutao</h1>
+  <h2>当你的<span>能力</span>不足以支撑你的梦想时，请静下心来慢慢<span>积淀</span></h2>
+</header>
+
+  <section class="content">
+  <article class="article">
+    <div class="box">
+      <span class="date">2015-11-27|</span>
+      <span class="tags">
+      
+      
+        
+        <a href='/tags/node/'>node</a>
+        
+      
+      
+      </span>
+      <h1 class="title">Node学习笔记之异步I/O</h1>
+    </div>
+    <div class="article-nav"><h4>文章目录</h4>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u9996_u5148_u641E_u6E05_u695A_u51E0_u4E2A_u6982_u5FF5"><span class="toc-text">首先搞清楚几个概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-what_is_the_I/O_uFF1F"><span class="toc-text">1.what is the I/O？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-_u963B_u585EI/O_2C_u975E_u963B_u585EI/O"><span class="toc-text">2.阻塞I/O,非阻塞I/O</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-_u5F02_u6B65_26amp_3B_u540C_u6B65"><span class="toc-text">3.异步&同步</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OK_uFF0C_u7406_u89E3_u4EE5_u4E0A_u6982_u5FF5_u540E_uFF0C_u5148_u4E0D_u614C_u518D_u6765_u7406_u89E3_u4E00_u4E0B"><span class="toc-text">OK，理解以上概念后，先不慌再来理解一下</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u5C0F_u7ED3_uFF1A_u6240_u4EE5_uFF0C_u4ECE_u5B9E_u9645_u6548_u679C_u800C_u8A00_uFF0C_u5F02_u6B65_u548C_u975E_u963B_u585E_u90FD_u53EF_u4EE5_u8FBE_u5230_u6211_u4EEC_u5E76_u884CI/O_u7684_u76EE_u7684_uFF0C_u4F46_u5B9E_u9645_u4E0A_u5374_u662F_u4E24_u56DE_u4E8B_u3002"><span class="toc-text">小结：所以，从实际效果而言，异步和非阻塞都可以达到我们并行I/O的目的，但实际上却是两回事。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u800C_u6548_u7387_u6700_u9AD8_u7684I/O_u64CD_u4F5C_u83AB_u8FC7_u4E8E_u5F02_u6B65_u975E_u963B_u585EI/O_28_u5F53_u7136_u53EA_u662F_u7406_u60F3_u4E2D_u7684_u2026_29"><span class="toc-text">而效率最高的I/O操作莫过于异步非阻塞I/O(当然只是理想中的…)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u56DE_u5230Node_u4E2D_u7684_u5F02_u6B65I/O"><span class="toc-text">回到Node中的异步I/O</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#node_u5B9E_u73B0_u5F02_u6B65I/O_u7684_u4E3B_u8981_u73AF_u8282"><span class="toc-text">node实现异步I/O的主要环节</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u4E8B_u4EF6_u5FAA_u73AF"><span class="toc-text">事件循环</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u89C2_u5BDF_u8005"><span class="toc-text">观察者</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u8BF7_u6C42_u5BF9_u8C61"><span class="toc-text">请求对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u6267_u884C_u56DE_u8C03"><span class="toc-text">执行回调</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5C0F_u7ED3_uFF1A_u4E8B_u4EF6_u5FAA_u73AF_u662F_u5F02_u6B65_u5B9E_u73B0_u7684_u6838_u5FC3"><span class="toc-text">小结：事件循环是异步实现的核心</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6700_u540E_u7684_u7684_u6700_u540E"><span class="toc-text">最后的的最后</span></a></li></ol>
+</div>
+    <h3 id="u9996_u5148_u641E_u6E05_u695A_u51E0_u4E2A_u6982_u5FF5"><a href="#u9996_u5148_u641E_u6E05_u695A_u51E0_u4E2A_u6982_u5FF5" class="headerlink" title="首先搞清楚几个概念"></a>首先搞清楚几个概念</h3><h4 id="1-what_is_the_I/O_uFF1F"><a href="#1-what_is_the_I/O_uFF1F" class="headerlink" title="1.what is the I/O？"></a>1.what is the I/O？</h4><p>输入输出（Input/Output）？<br>I/O操作包括读写操作、输入输出、请求响应等等。</p>
+<h4 id="2-_u963B_u585EI/O_2C_u975E_u963B_u585EI/O"><a href="#2-_u963B_u585EI/O_2C_u975E_u963B_u585EI/O" class="headerlink" title="2.阻塞I/O,非阻塞I/O"></a>2.阻塞I/O,非阻塞I/O</h4><p>程序在执行时，或多或少都会有I/O调用，而操作系统内核对于I/O有且只有两种机制</p>
+<ul>
+<li>阻塞</li>
+<li>非阻塞</li>
+</ul>
+<p>阻塞I/O的特点就是调用之后一定要操作系统内核层面完成所有操作后，才调用结束</p>
+<ul>
+<li>issue：造成CPU等待浪费，以及后续其它业务调用停滞</li>
+</ul>
+<p>非阻塞I/O不同与阻塞I/O，它调用之后立刻返回，但是只是返回一种状态，不带任何数据，若要获取完整的数据，应用程序需要<em>重复</em>调用I/O操作来确认是否完成</p>
+<ul>
+<li>issue：让CPU处理状态判断，是对CPU资源的浪费</li>
+<li>有关与这种重复调用判断操作是否完成的技术叫做<strong>轮询(evevt loop)</strong>现存的轮询技术主要有以下5种：<ul>
+<li>read</li>
+<li>select</li>
+<li>poll</li>
+<li>epoll</li>
+<li>kqueue</li>
+</ul>
+</li>
+</ul>
+<p><strong>So,阻塞与非阻塞是属于操作系统（线程/进程）层面进行等待的一种方式</strong></p>
+<h4 id="3-_u5F02_u6B65_26amp_3B_u540C_u6B65"><a href="#3-_u5F02_u6B65_26amp_3B_u540C_u6B65" class="headerlink" title="3.异步&amp;同步"></a>3.异步&amp;同步</h4><p>同步：Keep waiting.代码在执行时一切都得按顺序来，即使遇到时间开销大的调用，依旧需要等待调用完成，然后才会执行余下代码，（如下码，事先在1.txt里面输入“Oh,你打开了1.txt文件!”）<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">var</span> fs    = <span class="keyword">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="built_in">var</span> <span class="built_in">data</span>  = fs<span class="built_in">.</span>readFileSync(<span class="string">'1.txt'</span>, <span class="string">'utf-8'</span>);</span><br><span class="line"></span><br><span class="line">console<span class="built_in">.</span><span class="keyword">log</span>(<span class="built_in">data</span>);</span><br><span class="line">console<span class="built_in">.</span><span class="keyword">log</span>(<span class="string">'Hi,程序结束\n'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>执行代码，如下输出：<br><img src="/images/1.png" alt="Alt text"></p>
+<p>异步：Don’t call me, I will call you.代码在执行时，如遇到时间开销大的调用，无需等待该调用完成，继续执行余下的代码，（如下码）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">'1.txt'</span>, <span class="string">'utf-8'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Hi,程序结束\n'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>执行，输出：<br><img src="/images/2.png" alt="Alt text"></p>
+<p><strong>So,由此可见，异步与同步是代码层面的消息通知机制</strong></p>
+<hr>
+<p>此外，关于同步和异步，阻塞和非阻塞，网上大神的概述：<br>同步/异步是 API 被调用者的通知方式。阻塞/非阻塞则是 API 调用者的等待方式。</p>
+<hr>
+<h3 id="OK_uFF0C_u7406_u89E3_u4EE5_u4E0A_u6982_u5FF5_u540E_uFF0C_u5148_u4E0D_u614C_u518D_u6765_u7406_u89E3_u4E00_u4E0B"><a href="#OK_uFF0C_u7406_u89E3_u4EE5_u4E0A_u6982_u5FF5_u540E_uFF0C_u5148_u4E0D_u614C_u518D_u6765_u7406_u89E3_u4E00_u4E0B" class="headerlink" title="OK，理解以上概念后，先不慌再来理解一下"></a>OK，理解以上概念后，先不慌再来理解一下</h3><ul>
+<li><strong>同步阻塞</strong></li>
+<li><strong>同步非阻塞</strong></li>
+<li><strong>异步阻塞</strong></li>
+<li><strong>异步非阻塞</strong></li>
+</ul>
+<p>就不啰嗦了，直接paste网上大神的总结，非常暴力直接解释：（拿小明下载东西来举例）</p>
+<ul>
+<li>同步阻塞：小明一直盯着下载进度条，到 100% 的时候就完成。</li>
+<li>同步非阻塞：小明提交下载任务后就去干别的，每过一段时间就去瞄一眼进度条，看到 100% 就完成。</li>
+<li>异步阻塞：小明换了个有下载完成通知功能的软件，下载完成就“叮”一声。不过小明仍然一直等待“叮”的声音（看起来很傻，不是吗）</li>
+<li>异步非阻塞：仍然是那个会“叮”一声的下载软件，小明提交下载任务后就去干别的，听到“叮”的一声就知道完成了。</li>
+<li><a href="https://ring0.me/2014/11/sync-async-blocked/" target="_blank" rel="external">全文地址</a></li>
+</ul>
+<hr>
+<h4 id="u5C0F_u7ED3_uFF1A_u6240_u4EE5_uFF0C_u4ECE_u5B9E_u9645_u6548_u679C_u800C_u8A00_uFF0C_u5F02_u6B65_u548C_u975E_u963B_u585E_u90FD_u53EF_u4EE5_u8FBE_u5230_u6211_u4EEC_u5E76_u884CI/O_u7684_u76EE_u7684_uFF0C_u4F46_u5B9E_u9645_u4E0A_u5374_u662F_u4E24_u56DE_u4E8B_u3002"><a href="#u5C0F_u7ED3_uFF1A_u6240_u4EE5_uFF0C_u4ECE_u5B9E_u9645_u6548_u679C_u800C_u8A00_uFF0C_u5F02_u6B65_u548C_u975E_u963B_u585E_u90FD_u53EF_u4EE5_u8FBE_u5230_u6211_u4EEC_u5E76_u884CI/O_u7684_u76EE_u7684_uFF0C_u4F46_u5B9E_u9645_u4E0A_u5374_u662F_u4E24_u56DE_u4E8B_u3002" class="headerlink" title="小结：所以，从实际效果而言，异步和非阻塞都可以达到我们并行I/O的目的，但实际上却是两回事。"></a>小结：所以，从实际效果而言，异步和非阻塞都可以达到我们并行I/O的目的，但实际上却是两回事。</h4><h4 id="u800C_u6548_u7387_u6700_u9AD8_u7684I/O_u64CD_u4F5C_u83AB_u8FC7_u4E8E_u5F02_u6B65_u975E_u963B_u585EI/O_28_u5F53_u7136_u53EA_u662F_u7406_u60F3_u4E2D_u7684_u2026_29"><a href="#u800C_u6548_u7387_u6700_u9AD8_u7684I/O_u64CD_u4F5C_u83AB_u8FC7_u4E8E_u5F02_u6B65_u975E_u963B_u585EI/O_28_u5F53_u7136_u53EA_u662F_u7406_u60F3_u4E2D_u7684_u2026_29" class="headerlink" title="而效率最高的I/O操作莫过于异步非阻塞I/O(当然只是理想中的…)"></a>而效率最高的I/O操作莫过于异步非阻塞I/O(当然只是理想中的…)</h4><hr>
+<h3 id="u56DE_u5230Node_u4E2D_u7684_u5F02_u6B65I/O"><a href="#u56DE_u5230Node_u4E2D_u7684_u5F02_u6B65I/O" class="headerlink" title="回到Node中的异步I/O"></a>回到Node中的异步I/O</h3><h4 id="node_u5B9E_u73B0_u5F02_u6B65I/O_u7684_u4E3B_u8981_u73AF_u8282"><a href="#node_u5B9E_u73B0_u5F02_u6B65I/O_u7684_u4E3B_u8981_u73AF_u8282" class="headerlink" title="node实现异步I/O的主要环节"></a>node实现异步I/O的主要环节</h4><ul>
+<li>事件循环</li>
+<li>观察者</li>
+<li>请求对象</li>
+<li>执行回调</li>
+</ul>
+<h5 id="u4E8B_u4EF6_u5FAA_u73AF"><a href="#u4E8B_u4EF6_u5FAA_u73AF" class="headerlink" title="事件循环"></a>事件循环</h5><p>node自身的执行模型为<strong>事件循环</strong>，这使得回调函数在node中非常普遍性。<br>在进程启动时，node便会创建类似于while(true)的循环，每执行一次循环的过程称之为<code>Tick</code>。每个<code>Tick</code>的过程就是查看是否有事件要处理，如果有就取出事件以及相关回调函数。如果存在关联的回调函数，就执行它们。然后进入下个循环，如果不再有事件处理，就退出进程。</p>
+<h5 id="u89C2_u5BDF_u8005"><a href="#u89C2_u5BDF_u8005" class="headerlink" title="观察者"></a>观察者</h5><p>在每个<code>Tick</code>的过程中，就得需要判断是否有事件需要处理，由此而引入了<strong>观察者</strong> 的概念。<br>每个事件循环中就有一个或者多个观察者，而判断是否有事件要处理的过程就是向这些观察者询问是否有要处理的事件。<br>这个过程就好比饭馆厨房一轮一轮地制作菜肴，但是具体要做那些菜做几道，就得取决于前台收银接到的客人的单子了。在这里收银就是观察者，收到的点单就是关联的回调函数，当然饭馆经营得当，就可能会有多个收银，就如同事件循环中有多个观察者一样。<br>收到下单就是一个事件，一个观察者手中就可能有多个事件。</p>
+<h5 id="u8BF7_u6C42_u5BF9_u8C61"><a href="#u8BF7_u6C42_u5BF9_u8C61" class="headerlink" title="请求对象"></a>请求对象</h5><p>对于node中的异步I/O调用而言，回调函数却不由开发者来调用。事实上，从js发起调用到内核完成I/O操作的过渡过程中，存在一种中间产物，他叫<strong>请求对象</strong>。<br>请求对象是异步I/O过程中的重要中间产物，所有的状态都保存在这个对象中，包括送入线程池等待执行以及I/O操作完毕后的回调处理。</p>
+<h5 id="u6267_u884C_u56DE_u8C03"><a href="#u6267_u884C_u56DE_u8C03" class="headerlink" title="执行回调"></a>执行回调</h5><p>组装好请求对象，送入<strong>I/O线程池</strong>等待执行，实际上完成了异步I/O的第一步，<strong>回调</strong>通知是第二部分。</p>
+<hr>
+<h4 id="u5C0F_u7ED3_uFF1A_u4E8B_u4EF6_u5FAA_u73AF_u662F_u5F02_u6B65_u5B9E_u73B0_u7684_u6838_u5FC3"><a href="#u5C0F_u7ED3_uFF1A_u4E8B_u4EF6_u5FAA_u73AF_u662F_u5F02_u6B65_u5B9E_u73B0_u7684_u6838_u5FC3" class="headerlink" title="小结：事件循环是异步实现的核心"></a>小结：事件循环是异步实现的核心</h4><hr>
+<h3 id="u6700_u540E_u7684_u7684_u6700_u540E"><a href="#u6700_u540E_u7684_u7684_u6700_u540E" class="headerlink" title="最后的的最后"></a>最后的的最后</h3><p>Everything runs in parallel except your code!<br><strong>（在Node中）除了代码，一切都是并行的！</strong></p>
+<p>参考资料：</p>
+<ul>
+<li>internet</li>
+<li>《深入浅出 Node.js》</li>
+</ul>
+
+  </article>
+  <div class="post-nav">
+    <div class="pre-post">
+      
+      <a href="/2015/12/18/Git命令小记/">
+          ← Git命令小记
+      </a>
+      
+    </div>
+    <div class="next-post">
+      
+      <a href="/2015/11/26/mysql操作/">
+          Ubuntu下mysql 创建数据库和表的相关操作 →
+      </a>
+      
+    </div>
+  </div>
+  <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/11/27/node异步IO/" data-title="Node学习笔记之异步I/O" data-url="http://yoursite.com/2015/11/27/node异步IO/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"huangxutao"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+</section>
+
+
+  <aside id="side-nav">
+  <!-- 关闭按钮 -->
+  <div class="close"></div>
+  <ul>
+    <!-- home -->
+    <li><a href="/">Home</a></li>
+    <!-- archives -->
+    <li><a href="/archives">archives</a></li>
+    <!-- categories -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Categories</a>
+      <ul>
+        
+        <li>
+          <a href="/categories/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- tags -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Tags</a>
+      <ul>
+        
+        <li>
+          <a href="/tags/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- links -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Links</a>
+        <ul class="sb-submenu">
+            
+            <li><a href="http://huangbingbing.com" target="_blank">炳炳</a></li>
+            
+            <li><a href="http://makaiqian.com" target="_blank">麻组</a></li>
+            
+            <li><a href="http://wangxinze.com" target="_blank">大表哥</a></li>
+            
+            <li><a href="http://zhouyutao.com" target="_blank">涛哥</a></li>
+            
+        </ul>
+    </li>
+    
+  </ul>
+</aside>
+
+  <footer class="footer">
+  <div class="copy">
+    <p>&copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By huangxutao. All Rights Reserved.</p>
+    <p>Theme By <a href="http://huangxutao.github.io/" target="_blank">elliot</a></p>
+  </div>
+  <div class="connect">
+    
+    <a href="http://weibo.com/u/2844827443" title="weibo" target="_blank" class="icon-weibo"></a>
+    
+
+    
+    <a href="https://github.com/huangxutao" title="Github" target="_blank" class="icon-github"></a>
+    
+
+    
+    <a href="https://www.facebook.com/profile.php?id=100009457792215" title="facebook" target="_blank" class="icon-facebook"></a>
+    
+
+    
+    <a href="https://twitter.com/huangxutao" title="twitter" target="_blank" class="icon-twitter"></a>
+    
+  </div>
+</footer>
+
+  <div id="to-top" class="none">&#xe60a;</div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
