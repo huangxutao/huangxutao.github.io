@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta data -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="generator" content="huangxutao'blog">
+  <meta name="author" content="huangxutao">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <!-- page title -->
+  <title>剪不断理还乱的JS之函数声明与函数表达式 | huangxutao&#39;blog</title>
+  <!-- page icon -->
+  <link rel="Shortcut Icon" href="/images/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+</head>
+
+<body>
+  <nav id="nav">
+  <a href="/"><img src="/images/logo.png" alt="" id="logo" class="none"></a>
+  <a href="https://github.com/huangxutao" target="_blank">GitHub</a>
+  <a href="javascript:;" id="menu"></a>
+</nav>
+
+  <header class="header">
+  <img src="/images/logo.png" alt="huangxutao">
+  <h1>huangxutao</h1>
+  <h2>当你的<span>能力</span>不足以支撑你的梦想时，请静下心来慢慢<span>积淀</span></h2>
+</header>
+
+  <section class="content">
+  <article class="article">
+    <div class="box">
+      <span class="date">2016-03-08|</span>
+      <span class="tags">
+      
+      
+        
+        <a href='/tags/javascript/'>javascript</a>
+        
+      
+      
+      </span>
+      <h1 class="title">剪不断理还乱的JS之函数声明与函数表达式</h1>
+    </div>
+    <div class="article-nav"><h4>文章目录</h4>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u51FD_u6570_u58F0_u660E"><span class="toc-text">函数声明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u7528_u51FD_u6570_u58F0_u660E_u5B9A_u4E49_u4E00_u4E2A_u51FD_u6570"><span class="toc-text">用函数声明定义一个函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u51FD_u6570_u8868_u8FBE_u5F0F"><span class="toc-text">函数表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u7528_u51FD_u6570_u8868_u8FBE_u5F0F_u5B9A_u4E49_u4E00_u4E2A_u51FD_u6570"><span class="toc-text">用函数表达式定义一个函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5173_u4E8E_u51FD_u6570_u58F0_u660E_u4E0E_u51FD_u6570_u8868_u8FBE_u5F0F"><span class="toc-text">关于函数声明与函数表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u91CD_u8981_u7279_u5F81"><span class="toc-text">重要特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6CE8_u610F"><span class="toc-text">注意</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5C0F_u7ED3"><span class="toc-text">小结</span></a></li></ol>
+</div>
+    <p>在JavaScript中定义函数的方式有两种：一种是函数声明，另一种就是函数表达式</p>
+<h3 id="u51FD_u6570_u58F0_u660E"><a href="#u51FD_u6570_u58F0_u660E" class="headerlink" title="函数声明"></a>函数声明</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">//函数体...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先是<code>function</code>关键字，然后是函数名称（必须有）</p>
+<h4 id="u7528_u51FD_u6570_u58F0_u660E_u5B9A_u4E49_u4E00_u4E2A_u51FD_u6570"><a href="#u7528_u51FD_u6570_u58F0_u660E_u5B9A_u4E49_u4E00_u4E2A_u51FD_u6570" class="headerlink" title="用函数声明定义一个函数"></a>用函数声明定义一个函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">1</span>)&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="u51FD_u6570_u8868_u8FBE_u5F0F"><a href="#u51FD_u6570_u8868_u8FBE_u5F0F" class="headerlink" title="函数表达式"></a>函数表达式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">//函数体...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>funName</code>函数名称，可忽略（则为匿名函数）。函数名称只是函数体中的一个本地变量。<em><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/function" target="_blank" rel="external">更多信息请查看developer.mozilla.org</a></em></p>
+<h4 id="u7528_u51FD_u6570_u8868_u8FBE_u5F0F_u5B9A_u4E49_u4E00_u4E2A_u51FD_u6570"><a href="#u7528_u51FD_u6570_u8868_u8FBE_u5F0F_u5B9A_u4E49_u4E00_u4E2A_u51FD_u6570" class="headerlink" title="用函数表达式定义一个函数"></a>用函数表达式定义一个函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="number">1</span>)&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="u5173_u4E8E_u51FD_u6570_u58F0_u660E_u4E0E_u51FD_u6570_u8868_u8FBE_u5F0F"><a href="#u5173_u4E8E_u51FD_u6570_u58F0_u660E_u4E0E_u51FD_u6570_u8868_u8FBE_u5F0F" class="headerlink" title="关于函数声明与函数表达式"></a>关于函数声明与函数表达式</h3><h4 id="u91CD_u8981_u7279_u5F81"><a href="#u91CD_u8981_u7279_u5F81" class="headerlink" title="重要特征"></a>重要特征</h4><p>函数声明：函数声明提升（Hoisting），即在执行代码之前会先读取函数声明<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo();</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//运行结果：１</span></span><br></pre></td></tr></table></figure></p>
+<p>函数表达式：函数表达式与其它表达式一样，必须先赋值后使用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo(); <span class="comment">//函数还不存在</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//运行结果：Uncaught TypeError: foo is not a function</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="u6CE8_u610F"><a href="#u6CE8_u610F" class="headerlink" title="注意"></a>注意</h4><p>从表面上看，以下代码表示在<code>condition</code>为<code>true</code>时，使用一个<code>sayHi()</code>的定义；否则，使用另一个定义。但是很遗憾的，这在ECMAScript中属于无效语法，js引擎会尝试修正错误，将其转换为合理状态。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(condition) &#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span>(<span class="params"></span>) <span class="title">sayHi</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		alert(<span class="string">"Hi"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span>(<span class="params"></span>) <span class="title">sayHi</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		alert(<span class="string">"Yo"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是不同浏览器的做法并不一致，大多数浏览器会返回第二个声明，忽略<code>condition</code>；Firefox会在<code>condition</code>为<code>true</code>时返回第一个声明；<br>不过，如果是使用函数表达式就不会出现这样的问题了，如下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sayHi;</span><br><span class="line"><span class="keyword">if</span>(condition) &#123;</span><br><span class="line">	sayHi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		alert(<span class="string">"Hi"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	sayHi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		alert(<span class="string">"Yo"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//不同的函数会根据condition被赋值给sayHi</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="u5C0F_u7ED3"><a href="#u5C0F_u7ED3" class="headerlink" title="小结"></a>小结</h3><p>粗暴点理解，以关键字<code>function</code>开头的就是函数声明，例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="string">"Hi"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其它的就是函数表达式例如:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sayHi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;alert(<span class="string">"Hi"</span>)&#125;;</span><br><span class="line"><span class="comment">//函数表达式</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;alert(<span class="string">"Hi"</span>)&#125;)();</span><br><span class="line"><span class="comment">//还是函数表达式</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;alert(<span class="string">"Hi"</span>)&#125;());</span><br><span class="line"><span class="comment">//函数表达式...</span></span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<p>函数表达式不同与函数声明，函数声明要求必须有名称，但函数表达式不一定需要，没有名称的函数表达式也叫做匿名函数（也称拉姆达函数）</p>
+
+  </article>
+  <div class="post-nav">
+    <div class="pre-post">
+      
+    </div>
+    <div class="next-post">
+      
+      <a href="/2015/12/18/Git命令小记/">
+          Git命令小记 →
+      </a>
+      
+    </div>
+  </div>
+  <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/03/08/剪不断理还乱的JS之函数声明与函数表达式/" data-title="剪不断理还乱的JS之函数声明与函数表达式" data-url="http://yoursite.com/2016/03/08/剪不断理还乱的JS之函数声明与函数表达式/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"huangxutao"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+</section>
+
+
+  <aside id="side-nav">
+  <!-- 关闭按钮 -->
+  <div class="close"></div>
+  <ul>
+    <!-- home -->
+    <li><a href="/">Home</a></li>
+    <!-- archives -->
+    <li><a href="/archives">archives</a></li>
+    <!-- categories -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Categories</a>
+      <ul>
+        
+        <li>
+          <a href="/categories/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/javascript/">javascript(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- tags -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Tags</a>
+      <ul>
+        
+        <li>
+          <a href="/tags/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/javascript/">javascript(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- links -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Links</a>
+        <ul class="sb-submenu">
+            
+            <li><a href="http://huangbingbing.com" target="_blank">炳炳</a></li>
+            
+            <li><a href="http://makaiqian.com" target="_blank">麻组</a></li>
+            
+            <li><a href="http://wangxinze.com" target="_blank">大表哥</a></li>
+            
+            <li><a href="http://zhouyutao.com" target="_blank">涛哥</a></li>
+            
+        </ul>
+    </li>
+    
+  </ul>
+</aside>
+
+  <footer class="footer">
+  <div class="copy">
+    <p>&copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By huangxutao. All Rights Reserved.</p>
+    <p>Theme By <a href="http://huangxutao.github.io/" target="_blank">elliot</a></p>
+  </div>
+  <div class="connect">
+    
+    <a href="http://weibo.com/u/2844827443" title="weibo" target="_blank" class="icon-weibo"></a>
+    
+
+    
+    <a href="https://github.com/huangxutao" title="Github" target="_blank" class="icon-github"></a>
+    
+
+    
+    <a href="https://www.facebook.com/profile.php?id=100009457792215" title="facebook" target="_blank" class="icon-facebook"></a>
+    
+
+    
+    <a href="https://twitter.com/huangxutao" title="twitter" target="_blank" class="icon-twitter"></a>
+    
+  </div>
+</footer>
+
+  <div id="to-top" class="none">&#xe60a;</div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
