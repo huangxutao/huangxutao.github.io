@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta data -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="generator" content="huangxutao'blog">
+  <meta name="author" content="huangxutao">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="baidu-site-verification" content="vkibNNI4vW" />
+  <!-- page title -->
+  <title>javascript事件处理 | huangxutao&#39;blog</title>
+  <!-- page icon -->
+  <link rel="Shortcut Icon" href="/images/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+</head>
+
+<body>
+  <nav id="nav">
+  <a href="/"><img src="/images/logo.png" alt="" id="logo" class="none"></a>
+  <a href="https://github.com/huangxutao" target="_blank">GitHub</a>
+  <a href="javascript:;" id="menu"></a>
+</nav>
+
+  <header class="header">
+  <img src="/images/logo.png" alt="huangxutao">
+  <h1>huangxutao</h1>
+  <h2>当你的<span>能力</span>不足以支撑你的梦想时，请静下心来慢慢<span>积淀</span></h2>
+</header>
+
+  <section class="content">
+  <article class="article">
+    <div class="box">
+      <span class="date">2016-04-25|</span>
+      <span class="tags">
+      
+      
+        
+        <a href='/tags/javascript/'>javascript</a>
+        
+      
+      
+      </span>
+      <h1 class="title">javascript事件处理</h1>
+    </div>
+    <div class="article-nav"><h4>文章目录</h4>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5728HTML_u4E2D_u5185_u5D4C_u6807_u7B7E_u5C5E_u6027"><span class="toc-text">在HTML中内嵌标签属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM_u5C5E_u6027_u7ED1_u5B9A"><span class="toc-text">DOM属性绑定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6807_u51C6_u4E8B_u4EF6_u5904_u7406_uFF08_u4EE3_u7406_uFF09_u51FD_u6570__uFF08_u6682_u4E0D_u8003_u8651_u517C_u5BB9_u6027_u5904_u7406_uFF09"><span class="toc-text">标准事件处理（代理）函数 （暂不考虑兼容性处理）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u6DFB_u52A0_addEventListener_28_29"><span class="toc-text">添加 addEventListener()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u79FB_u9664_removeEventListener_28_29"><span class="toc-text">移除 removeEventListener()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E8B_u4EF6_u5904_u7406_u7684_u8FC7_u7A0B"><span class="toc-text">事件处理的过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E8B_u4EF6_u4EE3_u7406_u7684_u597D_u5904"><span class="toc-text">事件代理的好处</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5B9E_u4F8B"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6700_u540E"><span class="toc-text">最后</span></a></li></ol>
+</div>
+    <h3 id="u5728HTML_u4E2D_u5185_u5D4C_u6807_u7B7E_u5C5E_u6027"><a href="#u5728HTML_u4E2D_u5185_u5D4C_u6807_u7B7E_u5C5E_u6027" class="headerlink" title="在HTML中内嵌标签属性"></a>在HTML中内嵌标签属性</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">onclick</span>=<span class="value">"alert('hello');"</span>&gt;</span>点我啊<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>缺点：HTML 和 JavaScript 严重耦合，不便与开发维护</p>
+<h3 id="DOM_u5C5E_u6027_u7ED1_u5B9A"><a href="#DOM_u5C5E_u6027_u7ED1_u5B9A" class="headerlink" title="DOM属性绑定"></a>DOM属性绑定</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">element.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"hello"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优点：兼容性好，上手简单<br>缺点：一对一绑定，应用场景有限</p>
+<h3 id="u6807_u51C6_u4E8B_u4EF6_u5904_u7406_uFF08_u4EE3_u7406_uFF09_u51FD_u6570__uFF08_u6682_u4E0D_u8003_u8651_u517C_u5BB9_u6027_u5904_u7406_uFF09"><a href="#u6807_u51C6_u4E8B_u4EF6_u5904_u7406_uFF08_u4EE3_u7406_uFF09_u51FD_u6570__uFF08_u6682_u4E0D_u8003_u8651_u517C_u5BB9_u6027_u5904_u7406_uFF09" class="headerlink" title="标准事件处理（代理）函数 （暂不考虑兼容性处理）"></a>标准事件处理（代理）函数 <small>（暂不考虑兼容性处理）</small></h3><h4 id="u6DFB_u52A0_addEventListener_28_29"><a href="#u6DFB_u52A0_addEventListener_28_29" class="headerlink" title="添加 addEventListener()"></a>添加 addEventListener()</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"hello"</span>);</span><br><span class="line">&#125;</span><br><span class="line">element.addEventListener(<span class="string">"click"</span>, sayHello, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p><code>addEventLitener(type, listener, useCapture)</code>接收三个参数</p>
+<ul>
+<li>type: 事件类型</li>
+<li>listener: 事件处理函数</li>
+<li>useCapture: 默认<code>false</code>代表在冒泡阶段触发<code>listener</code>,如果设置为<code>true</code>则表示用户希望在捕获阶段触发<code>listener</code></li>
+</ul>
+<h4 id="u79FB_u9664_removeEventListener_28_29"><a href="#u79FB_u9664_removeEventListener_28_29" class="headerlink" title="移除 removeEventListener()"></a>移除 removeEventListener()</h4><p>与<code>addEventListener()</code>一样接收三个参数，常用与临时事件的注销</p>
+<h4 id="u4E8B_u4EF6_u5904_u7406_u7684_u8FC7_u7A0B"><a href="#u4E8B_u4EF6_u5904_u7406_u7684_u8FC7_u7A0B" class="headerlink" title="事件处理的过程"></a>事件处理的过程</h4><p>例如注册一个简单的事件处理<br>HTML：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"wrap"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn"</span>&gt;</span>点我<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>JS:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> sayHi = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">"Hi"</span>，e.target);</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="built_in">window</span>.addEventListener(<span class="string">"click"</span>, sayHi, <span class="literal">false</span>);</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，事件的触发节点，总是最底层的节点，所以当点击<code>button</code>时浏览器会干两件事情</p>
+<ul>
+<li>捕获目标阶段（找到目标节点）</li>
+<li>冒泡阶段<br><img src="/images/JS事件处理/1.svg" alt="Alt text"></li>
+</ul>
+<p>输出结果：<br><img src="/images/JS事件处理/2.png" alt="Alt text"></p>
+<p>以上从<code>Window</code>对象开始捕获，再冒泡到<code>window</code>对象结束的过程，并不是绝对的，起始捕获对象以及最终冒泡结束的对象，取决于你对谁注册的事件处理函数，如上代码中就是对<code>window</code>注册了事件处理函数</p>
+<h4 id="u4E8B_u4EF6_u4EE3_u7406_u7684_u597D_u5904"><a href="#u4E8B_u4EF6_u4EE3_u7406_u7684_u597D_u5904" class="headerlink" title="事件代理的好处"></a>事件代理的好处</h4><p>在理解事件处的过程后，不难发现父节点（你所注册的事件代理的那个节点，如上就是<code>window</code>）能够接收（在冒泡阶段）所有子孙节点的事件信息，利用这个特性我们就能实现如下优化</p>
+<ul>
+<li>减少了过多的事件绑定（一对一的DOM属性绑定）</li>
+<li>未知数量的事件处理，或者动态变化的DOM结构的事件处理（全丢给父节点就行了）</li>
+</ul>
+<h4 id="u5B9E_u4F8B"><a href="#u5B9E_u4F8B" class="headerlink" title="实例"></a>实例</h4><p>1.实现类似<strong>codePen</strong>标签功能：<br><img src="/images/JS事件处理/3.png" alt="Alt text"></p>
+<p>HTML：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"wrap"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"your-in"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"tags"</span>&gt;</span>Tags:<span class="tag">&lt;/<span class="title">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">"inTags"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"your-tags"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>CSS：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.wrap</span> <span class="tag">span</span><span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">display</span>:<span class="value"> inline-block</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> <span class="number">6px</span> <span class="number">0</span> <span class="number">0</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">4px</span> <span class="number">10px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">padding-left</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">4px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#eee</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="class">.wrap</span> <span class="tag">span</span> <span class="tag">i</span><span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> <span class="number">4px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">2px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#fff</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">font-style</span>:<span class="value"> normal</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#9E9E9E</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">4px</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="class">.wrap</span> <span class="tag">span</span> <span class="tag">i</span><span class="pseudo">:hover</span><span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#F44336</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="class">.your-tags</span><span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">20px</span> <span class="number">0</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">10px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">border-top</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#eee</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>JS:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/**</span><br><span class="line">       * 数组去重</span><br><span class="line">       */</span></span><br><span class="line">      <span class="built_in">Array</span>.prototype.unique = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> n = &#123;&#125;,r=[]; <span class="comment">//n为hash表，r为临时数组</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.length; i++) &#123;</span><br><span class="line">          <span class="keyword">if</span> (!n[<span class="keyword">this</span>[i]]) &#123;</span><br><span class="line">            n[<span class="keyword">this</span>[i]] = <span class="literal">true</span>; <span class="comment">//存入 hash 表</span></span><br><span class="line">        		r.push(<span class="keyword">this</span>[i]); <span class="comment">//把当前数组的当前项 push 到临时数组里面</span></span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/**</span><br><span class="line">       * 用户添加，删除 标签</span><br><span class="line">       */</span></span><br><span class="line">      <span class="keyword">var</span> wrap = <span class="built_in">document</span>.querySelector(<span class="string">".wrap"</span>);</span><br><span class="line">      wrap.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 增加标签</span></span><br><span class="line">        <span class="keyword">var</span> inTags = <span class="built_in">document</span>.getElementsByName(<span class="string">"inTags"</span>);</span><br><span class="line">        inTags[<span class="number">0</span>].onkeyup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="keyword">var</span> your_tags = <span class="built_in">document</span>.querySelector(<span class="string">".your-tags"</span>);</span><br><span class="line">          <span class="keyword">var</span> a = inTags[<span class="number">0</span>].value.split(<span class="string">","</span>).unique();</span><br><span class="line">          <span class="keyword">var</span> str = <span class="string">""</span>;</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;a.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(a[i] != <span class="string">""</span>) &#123;</span><br><span class="line">              str += <span class="string">"&lt;span&gt;&lt;i&gt;×&lt;/i&gt;"</span>+a[i]+<span class="string">"&lt;/span&gt;"</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          your_tags.innerHTML = str;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 删除标签</span></span><br><span class="line">        <span class="keyword">if</span>(e.target.tagName === <span class="string">"I"</span> &amp;&amp; e.target.parentNode.tagName === <span class="string">"SPAN"</span>) &#123;</span><br><span class="line">          <span class="keyword">var</span> a = inTags[<span class="number">0</span>].value.split(<span class="string">","</span>).unique();  <span class="comment">// 获取用户输入的标签存入数组 a</span></span><br><span class="line">          <span class="keyword">var</span> ar = [];  <span class="comment">// 用于储存删除某一标前后，剩余的标签</span></span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;a.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(a[i] !== e.target.parentNode.innerText.substr(<span class="number">1</span>)) &#123;</span><br><span class="line">              ar.push(a[i]);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          e.target.parentNode.parentNode.removeChild(e.target.parentNode);</span><br><span class="line">          inTags[<span class="number">0</span>].value = ar.join(<span class="string">","</span>);  <span class="comment">// 设置输入框中的值</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="literal">false</span>);</span><br><span class="line">    &#125;)();</span><br></pre></td></tr></table></figure></p>
+<p>codePen:</p>
+<iframe height="300" scrolling="no" src="//codepen.io/huangxutao/embed/PNdwYM/?height=300&theme-id=20640&default-tab=css,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="http://codepen.io/huangxutao/pen/PNdwYM/" target="_blank" rel="external">事件监听实例1</a> by elliot (<a href="http://codepen.io/huangxutao" target="_blank" rel="external">@huangxutao</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.<br></iframe>
+
+<p>2.实现类似bootstrap模态框功能<br><img src="/images/JS事件处理/4.png" alt="Alt text"><br>HTML：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"wrap"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">button</span>&gt;</span>点我啊<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"box"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"msg"</span>&gt;</span><span class="tag">&lt;<span class="title">p</span>&gt;</span>hello world<span class="tag">&lt;/<span class="title">p</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>CSS：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.box</span><span class="rules">&#123;</span><br><span class="line">     <span class="rule"><span class="attribute">display</span>:<span class="value"> none</span></span>;</span><br><span class="line">     <span class="rule"><span class="attribute">position</span>:<span class="value"> fixed</span></span>;</span><br><span class="line">     <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">     <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">     <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">     <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">     <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">rgba</span>(<span class="number">136</span>, <span class="number">132</span>, <span class="number">132</span>, <span class="number">0.6</span>)</span></span>;</span><br><span class="line">   &#125;</span></span><br><span class="line"></span><br><span class="line">   <span class="class">.box</span> <span class="class">.msg</span><span class="rules">&#123;</span><br><span class="line">     <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">120px</span> auto</span></span>;</span><br><span class="line">     <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">     <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;</span><br><span class="line">     <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">4px</span></span></span>;</span><br><span class="line">     <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#fff</span></span></span>;</span><br><span class="line">   &#125;</span></span><br><span class="line"></span><br><span class="line">   <span class="class">.box</span> <span class="class">.msg</span> <span class="tag">p</span><span class="rules">&#123;</span><br><span class="line">     <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;</span><br><span class="line">     <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">22px</span></span></span>;</span><br><span class="line">     <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">   &#125;</span></span><br><span class="line"></span><br><span class="line">   <span class="class">.show</span><span class="rules">&#123;</span><br><span class="line">     <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;</span><br><span class="line">   &#125;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> wrap = <span class="built_in">document</span>.querySelector(<span class="string">".wrap"</span>);</span><br><span class="line">  <span class="keyword">var</span> box = <span class="built_in">document</span>.querySelector(<span class="string">".box"</span>);</span><br><span class="line">  <span class="keyword">var</span> msg = <span class="built_in">document</span>.querySelector(<span class="string">".msg"</span>);</span><br><span class="line">  wrap.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(e.target.tagName === <span class="string">"BUTTON"</span>) &#123;</span><br><span class="line">      box.className = <span class="string">"box show"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  box.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    box.className = <span class="string">"box"</span>;</span><br><span class="line">  &#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  msg.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    e.stopPropagation();  <span class="comment">//停止冒泡</span></span><br><span class="line">  &#125;, <span class="literal">false</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>codePen:</p>
+<iframe height="300" scrolling="no" src="//codepen.io/huangxutao/embed/jqvEOr/?height=300&theme-id=20640&default-tab=js,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="http://codepen.io/huangxutao/pen/jqvEOr/" target="_blank" rel="external">事件代理实例2</a> by elliot (<a href="http://codepen.io/huangxutao" target="_blank" rel="external">@huangxutao</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.<br></iframe>
+
+<p>以上两个实例（就个人水平而言如果不采用事件代理，要实现相应的功能还是有些困难的）均为我最近遇到的问题，并不一定能完全说明<strong>事件代理</strong>的优点</p>
+<h3 id="u6700_u540E"><a href="#u6700_u540E" class="headerlink" title="最后"></a>最后</h3><p>不暴露你Low的一面，又怎能变优秀，So代码有问题（优化）或者关于js事件处理的称述有不足之处，还望指出</p>
+<p>参考资料：</p>
+<ul>
+<li><a href="http://javascript.ruanyifeng.com/dom/event.html" target="_blank" rel="external">《JavaScript 标准参考教程（alpha）》，by 阮一峰</a></li>
+<li>JavaScript权威指南（犀牛书）</li>
+</ul>
+
+  </article>
+  <div class="post-nav">
+    <div class="pre-post">
+      
+    </div>
+    <div class="next-post">
+      
+      <a href="/2016/04/04/定位居中问题/">
+          定位 居中问题 →
+      </a>
+      
+    </div>
+  </div>
+  <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/04/25/js事件处理/" data-title="javascript事件处理" data-url="http://yoursite.com/2016/04/25/js事件处理/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"huangxutao"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+</section>
+
+
+  <aside id="side-nav">
+  <!-- 关闭按钮 -->
+  <div class="close"></div>
+  <ul>
+    <!-- home -->
+    <li><a href="/">Home</a></li>
+    <!-- archives -->
+    <li><a href="/archives">archives</a></li>
+    <!-- categories -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Categories</a>
+      <ul>
+        
+        <li>
+          <a href="/categories/css/">css(2)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/javascript/">javascript(2)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- tags -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Tags</a>
+      <ul>
+        
+        <li>
+          <a href="/tags/css/">css(2)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/html/">html(2)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/javascript/">javascript(2)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- links -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Links</a>
+        <ul class="sb-submenu">
+            
+            <li><a href="http://huangbingbing.com" target="_blank">炳炳</a></li>
+            
+            <li><a href="http://makaiqian.com" target="_blank">麻组</a></li>
+            
+            <li><a href="http://wangxinze.com" target="_blank">大表哥</a></li>
+            
+            <li><a href="http://zhouyutao.com" target="_blank">涛哥</a></li>
+            
+        </ul>
+    </li>
+    
+  </ul>
+</aside>
+
+  <footer class="footer">
+  <div class="copy">
+    <p>&copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By huangxutao. All Rights Reserved.</p>
+    <p>Theme By <a href="http://huangxutao.github.io/" target="_blank">elliot</a></p>
+  </div>
+  <div class="connect">
+    
+    <a href="http://weibo.com/u/2844827443" title="weibo" target="_blank" class="icon-weibo"></a>
+    
+
+    
+    <a href="https://github.com/huangxutao" title="Github" target="_blank" class="icon-github"></a>
+    
+
+    
+    <a href="https://www.facebook.com/profile.php?id=100009457792215" title="facebook" target="_blank" class="icon-facebook"></a>
+    
+
+    
+    <a href="https://twitter.com/huangxutao" title="twitter" target="_blank" class="icon-twitter"></a>
+    
+  </div>
+</footer>
+
+  <div id="to-top" class="none">&#xe60a;</div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
