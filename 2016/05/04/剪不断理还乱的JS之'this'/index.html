@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta data -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="generator" content="huangxutao'blog">
+  <meta name="author" content="huangxutao">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="baidu-site-verification" content="vkibNNI4vW" />
+  <!-- page title -->
+  <title>剪不断理还乱的JS之&#39;this&#39; | huangxutao&#39;blog</title>
+  <!-- page icon -->
+  <link rel="Shortcut Icon" href="/images/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+</head>
+
+<body>
+  <nav id="nav">
+  <a href="/"><img src="/images/logo.png" alt="" id="logo" class="none"></a>
+  <a href="https://github.com/huangxutao" target="_blank">GitHub</a>
+  <a href="javascript:;" id="menu"></a>
+</nav>
+
+  <header class="header">
+  <img src="/images/logo.png" alt="huangxutao">
+  <h1>huangxutao</h1>
+  <h2>当你的<span>能力</span>不足以支撑你的梦想时，请静下心来慢慢<span>积淀</span></h2>
+</header>
+
+  <section class="content">
+  <article class="article">
+    <div class="box">
+      <span class="date">2016-05-04|</span>
+      <span class="tags">
+      
+      
+        
+        <a href='/tags/javascript/'>javascript</a>
+        
+      
+      
+      </span>
+      <h1 class="title">剪不断理还乱的JS之'this'</h1>
+    </div>
+    <div class="article-nav"><h4>文章目录</h4>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#What_u2019s__u2018this_u2019__3F"><span class="toc-text">What’s ‘this’ ?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How__u2018this_u2019_work__3F"><span class="toc-text">How ‘this’ work ?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u666E_u901A_u51FD_u6570_u8C03_u7528"><span class="toc-text">普通函数调用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F5C_u4E3A_u65B9_u6CD5_u8C03_u7528"><span class="toc-text">作为方法调用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6784_u9020_u51FD_u6570_u8C03_u7528"><span class="toc-text">构造函数调用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u663E_u793A_u7ED1_u5B9A_call__u3001apply"><span class="toc-text">显示绑定 call 、apply</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#You_need_to_pay_attention"><span class="toc-text">You need to pay attention</span></a></li></ol>
+</div>
+    <h3 id="What_u2019s__u2018this_u2019__3F"><a href="#What_u2019s__u2018this_u2019__3F" class="headerlink" title="What’s ‘this’ ?"></a>What’s ‘this’ ?</h3><ul>
+<li>‘this’ 关键字</li>
+<li>this的绑定与函数的声明位置无关</li>
+<li>取决与函数的<strong>调用方式</strong></li>
+</ul>
+<h3 id="How__u2018this_u2019_work__3F"><a href="#How__u2018this_u2019_work__3F" class="headerlink" title="How ‘this’ work ?"></a>How ‘this’ work ?</h3><h4 id="u666E_u901A_u51FD_u6570_u8C03_u7528"><a href="#u666E_u901A_u51FD_u6570_u8C03_u7528" class="headerlink" title="普通函数调用"></a>普通函数调用</h4><p>this 指向全局对象 或者 <code>undefined</code> (严格模式下)</p>
+<p>normal mode：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"window"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo();  <span class="comment">// --&gt; window</span></span><br></pre></td></tr></table></figure></p>
+<p>strict mode:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo();  <span class="comment">// --&gt; undefined</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="u4F5C_u4E3A_u65B9_u6CD5_u8C03_u7528"><a href="#u4F5C_u4E3A_u65B9_u6CD5_u8C03_u7528" class="headerlink" title="作为方法调用"></a>作为方法调用</h4><p>this 指向调用它的对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = &#123;</span><br><span class="line">  name : <span class="string">'elliot'</span>,</span><br><span class="line">  sayName : foo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">me.sayName();  <span class="comment">// --&gt; elliot</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="u6784_u9020_u51FD_u6570_u8C03_u7528"><a href="#u6784_u9020_u51FD_u6570_u8C03_u7528" class="headerlink" title="构造函数调用"></a>构造函数调用</h4><p>this指向新创建的对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">'elliot'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(me.name);  <span class="comment">// --&gt; elliot</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="u663E_u793A_u7ED1_u5B9A_call__u3001apply"><a href="#u663E_u793A_u7ED1_u5B9A_call__u3001apply" class="headerlink" title="显示绑定 call 、apply"></a>显示绑定 <code>call</code> 、<code>apply</code></h4><p>this 指向<code>call</code>或者<code>apply</code>所调用的第一个参数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"window"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = &#123;</span><br><span class="line">  name : <span class="string">'elliot'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> he = &#123;</span><br><span class="line">  name : <span class="string">'danic'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo();  <span class="comment">// --&gt; window</span></span><br><span class="line">foo.call(me);  <span class="comment">// --&gt; elliot</span></span><br><span class="line">foo.apply(he);  <span class="comment">// --&gt; danic</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="You_need_to_pay_attention"><a href="#You_need_to_pay_attention" class="headerlink" title="You need to pay attention"></a>You need to pay attention</h3><p>将方法赋值给一个变量,<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"window"</span>;</span><br><span class="line"><span class="keyword">var</span> me = &#123;</span><br><span class="line">  name : <span class="string">'elliot'</span>,</span><br><span class="line">  sayName : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = me.sayName;</span><br><span class="line">foo();  <span class="comment">// --&gt; window</span></span><br></pre></td></tr></table></figure></p>
+<p>闭包中使用 <code>this</code> (意想不到的结果)<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"window"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = &#123;</span><br><span class="line">  name : <span class="string">'elliot'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">me.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">  &#125;</span><br><span class="line">  foo();  <span class="comment">// 很明显此处 foo() 调用属于普通函数调用， this 指向全局对象</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">me.sayName();   <span class="comment">// --&gt; window  并不是期望的 elliot</span></span><br></pre></td></tr></table></figure></p>
+<p>缓存你的 this<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"window"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = &#123;</span><br><span class="line">  name : <span class="string">'elliot'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">me.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> that = <span class="keyword">this</span>;  <span class="comment">// 将 this 指向 that (that只是随便取的名字)，此处是方法调用 this 指向 me 对象</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(that.name);</span><br><span class="line">  &#125;</span><br><span class="line">  foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">me.sayName();   <span class="comment">// --&gt; elliot</span></span><br></pre></td></tr></table></figure></p>
+
+  </article>
+  <div class="post-nav">
+    <div class="pre-post">
+      
+    </div>
+    <div class="next-post">
+      
+      <a href="/2016/04/25/js事件处理/">
+          javascript事件处理 →
+      </a>
+      
+    </div>
+  </div>
+  <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/05/04/剪不断理还乱的JS之&#39;this&#39;/" data-title="剪不断理还乱的JS之&#39;this&#39;" data-url="http://yoursite.com/2016/05/04/剪不断理还乱的JS之&#39;this&#39;/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"huangxutao"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+</section>
+
+
+  <aside id="side-nav">
+  <!-- 关闭按钮 -->
+  <div class="close"></div>
+  <ul>
+    <!-- home -->
+    <li><a href="/">Home</a></li>
+    <!-- archives -->
+    <li><a href="/archives">archives</a></li>
+    <!-- categories -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Categories</a>
+      <ul>
+        
+        <li>
+          <a href="/categories/css/">css(2)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/javascript/">javascript(3)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- tags -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Tags</a>
+      <ul>
+        
+        <li>
+          <a href="/tags/css/">css(2)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/html/">html(2)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/javascript/">javascript(3)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- links -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Links</a>
+        <ul class="sb-submenu">
+            
+            <li><a href="http://huangbingbing.com" target="_blank">炳炳</a></li>
+            
+            <li><a href="http://makaiqian.com" target="_blank">麻组</a></li>
+            
+            <li><a href="http://wangxinze.com" target="_blank">大表哥</a></li>
+            
+            <li><a href="http://zhouyutao.com" target="_blank">涛哥</a></li>
+            
+        </ul>
+    </li>
+    
+  </ul>
+</aside>
+
+  <footer class="footer">
+  <div class="copy">
+    <p>&copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By huangxutao. All Rights Reserved.</p>
+    <p>Theme By <a href="http://huangxutao.github.io/" target="_blank">elliot</a></p>
+  </div>
+  <div class="connect">
+    
+    <a href="http://weibo.com/u/2844827443" title="weibo" target="_blank" class="icon-weibo"></a>
+    
+
+    
+    <a href="https://github.com/huangxutao" title="Github" target="_blank" class="icon-github"></a>
+    
+
+    
+    <a href="https://www.facebook.com/profile.php?id=100009457792215" title="facebook" target="_blank" class="icon-facebook"></a>
+    
+
+    
+    <a href="https://twitter.com/huangxutao" title="twitter" target="_blank" class="icon-twitter"></a>
+    
+  </div>
+</footer>
+
+  <div id="to-top" class="none">&#xe60a;</div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
