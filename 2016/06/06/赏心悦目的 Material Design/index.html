@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta data -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="generator" content="huangxutao'blog">
+  <meta name="author" content="huangxutao">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="baidu-site-verification" content="vkibNNI4vW" />
+  <!-- page title -->
+  <title>赏心悦目的 Material Design | huangxutao&#39;blog</title>
+  <!-- page icon -->
+  <link rel="Shortcut Icon" href="/images/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+</head>
+
+<body>
+  <nav id="nav">
+  <a href="/"><img src="/images/logo.png" alt="" id="logo" class="none"></a>
+  <a href="https://github.com/huangxutao" target="_blank">GitHub</a>
+  <a href="javascript:;" id="menu"></a>
+</nav>
+
+  <header class="header">
+  <img src="/images/logo.png" alt="huangxutao">
+  <h1>huangxutao</h1>
+  <h2>当你的<span>能力</span>不足以支撑你的梦想时，请静下心来慢慢<span>积淀</span></h2>
+</header>
+
+  <section class="content">
+  <article class="article">
+    <div class="box">
+      <span class="date">2016-06-06|</span>
+      <span class="tags">
+      
+      
+        
+        <a href='/tags/javascript/'>javascript</a>
+        
+      
+      
+      </span>
+      <h1 class="title">赏心悦目的 Material Design</h1>
+    </div>
+    <div class="article-nav"><h4>文章目录</h4>
+<ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#u5565_u4E5F_u4E0D_u8BF4_u5148_u653E_u6BB5_u5C0F_u89C6_u9891_uFF1A"><span class="toc-text">啥也不说先放段小视频：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-text">动手实践下 Material Design 风格的按钮组件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u539F_u7406_uFF1A"><span class="toc-text">原理：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u5176_u5B83_u5B9E_u73B0_u65B9_u5F0F_uFF08_u6B22_u8FCE_u5C0F_u4F19_u4F34_u5C1D_u8BD5_u5E76_u8865_u5145_uFF09_uFF1A"><span class="toc-text">其它实现方式（欢迎小伙伴尝试并补充）：</span></a></li></ol>
+</div>
+    <h5 id="u5565_u4E5F_u4E0D_u8BF4_u5148_u653E_u6BB5_u5C0F_u89C6_u9891_uFF1A"><a href="#u5565_u4E5F_u4E0D_u8BF4_u5148_u653E_u6BB5_u5C0F_u89C6_u9891_uFF1A" class="headerlink" title="啥也不说先放段小视频："></a>啥也不说先放段小视频：</h5><iframe width="560" height="315" src="https://www.youtube.com/embed/xYkz0Ueg0L4" frameborder="0" allowfullscreen></iframe>
+
+<p></p><h5>动手实践下 Material Design 风格的按钮组件</h5><br><br><br>HTML:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn color-teal"</span>&gt;</span>Hello<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn color-teal-reverse"</span>&gt;</span>Canvas<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure><p></p>
+<p>CSS:<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">html</span>,<span class="tag">body</span><span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">rgba</span>(<span class="number">245</span>,<span class="number">245</span>,<span class="number">245</span>,.<span class="number">4</span>)</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="class">.btn</span><span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">60px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">4px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">24px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">outline</span>:<span class="value"> none</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">border</span>:<span class="value"> none</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0</span> <span class="number">2px</span> <span class="number">5px</span> <span class="number">0</span> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.26</span>)</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">-webkit-user-select</span>:<span class="value"> none</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="class">.btn</span> <span class="tag">canvas</span><span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">opacity</span>:<span class="value"> .<span class="number">3</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">transition</span>:<span class="value"> opacity .<span class="number">6s</span> ease</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="class">.color-teal</span><span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#fff</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#0eb5b5</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="class">.color-teal-reverse</span><span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#0eb5b5</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#fff</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>JS:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> setMaterial = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">/***</span><br><span class="line">   * getStyle 获取非行间样样式</span><br><span class="line">   * @param &#123; Object &#125; 目标元素</span><br><span class="line">   * @param &#123; String &#125; 目标属性</span><br><span class="line">   */</span></span><br><span class="line">  <span class="keyword">var</span> getStyle = <span class="function"><span class="keyword">function</span> (<span class="params">obj, attr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj,<span class="literal">false</span>)[attr];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/***</span><br><span class="line">   * createCanvas 动态生成画布</span><br><span class="line">   * @param &#123; Object &#125; Material 化的元素</span><br><span class="line">   */</span></span><br><span class="line">  <span class="keyword">var</span> createCanvas = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> objWidth    = <span class="built_in">parseInt</span>(getStyle(obj, <span class="string">'width'</span>).slice(<span class="number">0</span>, -<span class="number">2</span>), <span class="number">10</span>),</span><br><span class="line">        objHeight   = <span class="built_in">parseInt</span>(getStyle(obj, <span class="string">'height'</span>).slice(<span class="number">0</span>, -<span class="number">2</span>), <span class="number">10</span>),</span><br><span class="line">        color       = getStyle(obj, <span class="string">'color'</span>),</span><br><span class="line">        radius      = (objWidth &gt; objHeight) ? objWidth : objHeight,</span><br><span class="line">        currRadius  = <span class="number">0</span>,</span><br><span class="line">        canvas      = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>),</span><br><span class="line">        ctx         = canvas.getContext(<span class="string">'2d'</span>),</span><br><span class="line">        isDrawing   = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    canvas.width  = objWidth;</span><br><span class="line">    canvas.height = objHeight;</span><br><span class="line"></span><br><span class="line">    obj.appendChild(canvas);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// canvas 绘画</span></span><br><span class="line">    <span class="keyword">var</span> draw = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">      ctx.beginPath();</span><br><span class="line">      ctx.arc( e.offsetX, e.offsetY, currRadius, <span class="number">0</span>, <span class="number">2</span>*<span class="built_in">Math</span>.PI, <span class="literal">true</span>);</span><br><span class="line">      ctx.fillStyle = color;</span><br><span class="line">      ctx.fill();</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    obj.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> timer = &#123;&#125;;</span><br><span class="line">      currRadius = isDrawing ? radius : <span class="number">0</span>;</span><br><span class="line">      timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(currRadius === radius) &#123;</span><br><span class="line">          clearInterval(timer);</span><br><span class="line">          ctx.clearRect( <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);</span><br><span class="line">          currRadius = <span class="number">0</span>;</span><br><span class="line">          isDrawing = <span class="literal">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          draw(e);</span><br><span class="line">          isDrawing = <span class="literal">true</span>;</span><br><span class="line">          currRadius ++;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="number">2</span>);</span><br><span class="line">    &#125;, <span class="literal">false</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> createCanvas;</span><br><span class="line">&#125;());</span><br><span class="line"></span><br><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> btn = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.btn'</span>);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;btn.length; i++) &#123;</span><br><span class="line">    setMaterial(btn[i]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure></p>
+<p>最终结果：</p>
+<iframe height="300" scrolling="no" src="//codepen.io/huangxutao/embed/JKjeJY/?height=300&theme-id=20640&default-tab=js,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="http://codepen.io/huangxutao/pen/JKjeJY/" target="_blank" rel="external">canvas-Material Design</a> by elliot (<a href="http://codepen.io/huangxutao" target="_blank" rel="external">@huangxutao</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.<br></iframe>
+
+<h5 id="u539F_u7406_uFF1A"><a href="#u539F_u7406_uFF1A" class="headerlink" title="原理："></a>原理：</h5><p>没多大技术性，就是canvas绘图，兼容性嘛 IE9+</p>
+<h5 id="u5176_u5B83_u5B9E_u73B0_u65B9_u5F0F_uFF08_u6B22_u8FCE_u5C0F_u4F19_u4F34_u5C1D_u8BD5_u5E76_u8865_u5145_uFF09_uFF1A"><a href="#u5176_u5B83_u5B9E_u73B0_u65B9_u5F0F_uFF08_u6B22_u8FCE_u5C0F_u4F19_u4F34_u5C1D_u8BD5_u5E76_u8865_u5145_uFF09_uFF1A" class="headerlink" title="其它实现方式（欢迎小伙伴尝试并补充）："></a>其它实现方式（欢迎小伙伴尝试并补充）：</h5><ul>
+<li>svg或许是个不错的选择</li>
+<li>css3嘛试过但碰壁了</li>
+</ul>
+
+  </article>
+  <div class="post-nav">
+    <div class="pre-post">
+      
+    </div>
+    <div class="next-post">
+      
+      <a href="/2016/05/07/DOM事件流/">
+          DOM事件流 →
+      </a>
+      
+    </div>
+  </div>
+  <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/06/06/赏心悦目的 Material Design/" data-title="赏心悦目的 Material Design" data-url="http://yoursite.com/2016/06/06/赏心悦目的 Material Design/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"huangxutao"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+</section>
+
+
+  <aside id="side-nav">
+  <!-- 关闭按钮 -->
+  <div class="close"></div>
+  <ul>
+    <!-- home -->
+    <li><a href="/">Home</a></li>
+    <!-- archives -->
+    <li><a href="/archives">archives</a></li>
+    <!-- categories -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Categories</a>
+      <ul>
+        
+        <li>
+          <a href="/categories/css/">css(2)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/javascript/">javascript(5)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- tags -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Tags</a>
+      <ul>
+        
+        <li>
+          <a href="/tags/css/">css(2)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/html/">html(2)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/javascript/">javascript(5)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/node/">node(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- links -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Links</a>
+        <ul class="sb-submenu">
+            
+            <li><a href="http://huangbingbing.com" target="_blank">炳炳</a></li>
+            
+            <li><a href="http://makaiqian.com" target="_blank">麻组</a></li>
+            
+            <li><a href="http://wangxinze.com" target="_blank">大表哥</a></li>
+            
+            <li><a href="http://zhouyutao.com" target="_blank">涛哥</a></li>
+            
+        </ul>
+    </li>
+    
+  </ul>
+</aside>
+
+  <footer class="footer">
+  <div class="copy">
+    <p>&copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By huangxutao. All Rights Reserved.</p>
+    <p>Theme By <a href="http://huangxutao.github.io/" target="_blank">elliot</a></p>
+  </div>
+  <div class="connect">
+    
+    <a href="http://weibo.com/u/2844827443" title="weibo" target="_blank" class="icon-weibo"></a>
+    
+
+    
+    <a href="https://github.com/huangxutao" title="Github" target="_blank" class="icon-github"></a>
+    
+
+    
+    <a href="https://www.facebook.com/profile.php?id=100009457792215" title="facebook" target="_blank" class="icon-facebook"></a>
+    
+
+    
+    <a href="https://twitter.com/huangxutao" title="twitter" target="_blank" class="icon-twitter"></a>
+    
+  </div>
+</footer>
+
+  <div id="to-top" class="none">&#xe60a;</div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
