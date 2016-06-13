@@ -12,7 +12,7 @@
   <meta name="keywords" content="">
   <meta name="baidu-site-verification" content="vkibNNI4vW" />
   <!-- page title -->
-  <title>Tag: javascript | huangxutao&#39;blog</title>
+  <title>Category: web | huangxutao&#39;blog</title>
   <!-- page icon -->
   <link rel="Shortcut Icon" href="/images/favicon.ico" type="image/ico">
   <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
@@ -34,135 +34,28 @@
   <section class="content">
   
   <div class="row">
-    <span class="date">2016-06-05</span>
-    <h1 class="title"><a href="/2016/06/05/赏心悦目的 Material Design/">赏心悦目的 Material Design</a></h1>
+    <span class="date">2016-06-13</span>
+    <h1 class="title"><a href="/2016/06/13/配置你的虚拟服务器/">配置你的虚拟服务器</a></h1>
     <h2 class="tags">
     
     
       
-      <a href='/tags/javascript/'>javascript</a>
+      <a href='/tags/web/'>web</a>
       
     
     
     </h2>
     <p>
       
-        啥也不说先放段小视频：
+        前言
+本篇旨在理清，路由器端口映射的过程，简单来讲就是让外网也能访问你的本地资源。
+所以涉及到本地服务的搭建自行解决
 
-动手实践下 Material Design 风格的按钮组件HTML:1234567891011&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt;  &lt;meta charset="UTF-8" /&gt;  &lt;title&gt;Document&lt;/title&gt;&lt;/head&gt;&lt;body&gt;  &lt;butto
+原理：通常情况下，路由器都有防火墙功能，互联网用户只能访问到你的路由器WAN口(接ADSL的电话线口或路由宽带外网口)，而访问不到内部服务器。要想让互联网用户访问到你建的服务器，就要在路由器上做一个转发设置，也就是端口映射设置，让互联网用户发送的请求到达路由器后,再转发到你建立的服务器或WEB站点。这就是端口映射。由于
       
     </p>
     
-      <a href="/2016/06/05/赏心悦目的 Material Design/" class="more">more&raquo;</a>
-    
-  </div>
-  
-  <div class="row">
-    <span class="date">2016-05-07</span>
-    <h1 class="title"><a href="/2016/05/07/DOM事件流/">DOM事件流</a></h1>
-    <h2 class="tags">
-    
-    
-      
-      <a href='/tags/javascript/'>javascript</a>
-      
-    
-    
-    </h2>
-    <p>
-      
-        DOM事件流规范“DOM2级事件”规定的事件流包括三个阶段：
-
-事件捕获阶段 (Evnet Capturing Phase)
-处于目标阶段 (Target Phase)
-事件冒泡阶段 (Event Bubbling Phase)
-
-说明以下面这个页面为例，
-HTML：123456789101112131415161718&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt;  &l
-      
-    </p>
-    
-      <a href="/2016/05/07/DOM事件流/" class="more">more&raquo;</a>
-    
-  </div>
-  
-  <div class="row">
-    <span class="date">2016-05-04</span>
-    <h1 class="title"><a href="/2016/05/04/剪不断理还乱的JS之'this'/">剪不断理还乱的JS之'this'</a></h1>
-    <h2 class="tags">
-    
-    
-      
-      <a href='/tags/javascript/'>javascript</a>
-      
-    
-    
-    </h2>
-    <p>
-      
-        What’s ‘this’ ?
-‘this’ 关键字
-this的绑定与函数的声明位置无关
-取决与函数的调用方式
-
-How ‘this’ work ?普通函数调用this 指向全局对象 或者 undefined (严格模式下)
-normal mode：123456var name = "window";function foo() &#123;  console.log(this.name);&#125;foo();  // --&gt;
-      
-    </p>
-    
-      <a href="/2016/05/04/剪不断理还乱的JS之'this'/" class="more">more&raquo;</a>
-    
-  </div>
-  
-  <div class="row">
-    <span class="date">2016-04-25</span>
-    <h1 class="title"><a href="/2016/04/25/js事件处理/">javascript事件处理</a></h1>
-    <h2 class="tags">
-    
-    
-      
-      <a href='/tags/javascript/'>javascript</a>
-      
-    
-    
-    </h2>
-    <p>
-      
-        在HTML中内嵌标签属性1&lt;button onclick="alert('hello');"&gt;点我啊&lt;/button&gt;
-缺点：HTML 和 JavaScript 严重耦合，不便与开发维护
-DOM属性绑定123element.onclick = function() &#123;	console.log("hello");&#125;
-优点：兼容性好，上手简单缺点：一对一绑定，应用场景有限
-标准事件处理（代理）函数
-      
-    </p>
-    
-      <a href="/2016/04/25/js事件处理/" class="more">more&raquo;</a>
-    
-  </div>
-  
-  <div class="row">
-    <span class="date">2016-03-08</span>
-    <h1 class="title"><a href="/2016/03/08/剪不断理还乱的JS之函数声明与函数表达式/">剪不断理还乱的JS之函数声明与函数表达式</a></h1>
-    <h2 class="tags">
-    
-    
-      
-      <a href='/tags/javascript/'>javascript</a>
-      
-    
-    
-    </h2>
-    <p>
-      
-        在JavaScript中定义函数的方式有两种：一种是函数声明，另一种就是函数表达式
-函数声明123function funName() &#123;	//函数体...&#125;
-首先是function关键字，然后是函数名称（必须有）
-用函数声明定义一个函数1function foo()&#123;console.log(1)&#125;;
-函数表达式123function funName() &#123;	//函数体...&#125;
-      
-    </p>
-    
-      <a href="/2016/03/08/剪不断理还乱的JS之函数声明与函数表达式/" class="more">more&raquo;</a>
+      <a href="/2016/06/13/配置你的虚拟服务器/" class="more">more&raquo;</a>
     
   </div>
   

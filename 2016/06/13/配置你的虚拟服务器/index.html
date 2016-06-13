@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta data -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="generator" content="huangxutao'blog">
+  <meta name="author" content="huangxutao">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="baidu-site-verification" content="vkibNNI4vW" />
+  <!-- page title -->
+  <title>配置你的虚拟服务器 | huangxutao&#39;blog</title>
+  <!-- page icon -->
+  <link rel="Shortcut Icon" href="/images/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+</head>
+
+<body>
+  <nav id="nav">
+  <a href="/"><img src="/images/logo.png" alt="" id="logo" class="none"></a>
+  <a href="https://github.com/huangxutao" target="_blank">GitHub</a>
+  <a href="javascript:;" id="menu"></a>
+</nav>
+
+  <header class="header">
+  <img src="/images/logo.png" alt="huangxutao">
+  <h1>huangxutao</h1>
+  <h2>当你的<span>能力</span>不足以支撑你的梦想时，请静下心来慢慢<span>积淀</span></h2>
+</header>
+
+  <section class="content">
+  <article class="article">
+    <div class="box">
+      <span class="date">2016-06-13|</span>
+      <span class="tags">
+      
+      
+        
+        <a href='/tags/web/'>web</a>
+        
+      
+      
+      </span>
+      <h1 class="title">配置你的虚拟服务器</h1>
+    </div>
+    <div class="article-nav"><h4>文章目录</h4>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u524D_u8A00"><span class="toc-text">前言</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u539F_u7406_uFF1A"><span class="toc-text">原理：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FC7_u7A0B"><span class="toc-text">过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5F00_u59CB_u8BBE_u7F6E"><span class="toc-text">开始设置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u9996_u5148"><span class="toc-text">首先</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u7136_u540E"><span class="toc-text">然后</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u6700_u540E"><span class="toc-text">最后</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6700_u540E_u7684_u6700_u540E"><span class="toc-text">最后的最后</span></a>
+</div>
+    <h4 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h4><ol>
+<li>本篇旨在理清，路由器端口映射的过程，简单来讲就是让外网也能访问你的本地资源。</li>
+<li>所以涉及到本地服务的搭建自行解决</li>
+</ol>
+<h3 id="u539F_u7406_uFF1A"><a href="#u539F_u7406_uFF1A" class="headerlink" title="原理："></a>原理：</h3><p>通常情况下，路由器都有防火墙功能，互联网用户只能访问到你的路由器WAN口(接ADSL的电话线口或路由宽带外网口)，而访问不到内部服务器。要想让互联网用户访问到你建的服务器，就要在路由器上做一个转发设置，也就是端口映射设置，让互联网用户发送的请求到达路由器后,再转发到你建立的服务器或WEB站点。这就是端口映射。由于各个路由器厂商所取功能名称不一样，有的叫虚拟服务器，有的叫NAT设置(BitComet中常见问题)端口映射。</p>
+<h3 id="u8FC7_u7A0B"><a href="#u8FC7_u7A0B" class="headerlink" title="过程"></a>过程</h3><ul>
+<li>外网访问：<a href="http://xx.xxx.xx.xxxx:8080" target="_blank" rel="external">http://xx.xxx.xx.xxxx:8080</a></li>
+<li>路由器解析映射到本地站点或者服务器：http:192.168.x.xxx:8080</li>
+</ul>
+<h3 id="u5F00_u59CB_u8BBE_u7F6E"><a href="#u5F00_u59CB_u8BBE_u7F6E" class="headerlink" title="开始设置"></a>开始设置</h3><h5 id="u9996_u5148"><a href="#u9996_u5148" class="headerlink" title="首先"></a>首先</h5><p>进入你的路由器管理界面，找到虚拟服务器(Virtual Server)这一条款，一般会在<strong>应用管理</strong>或者<strong>转发规则</strong>条目下找到(根据不同厂商位置不定)，如果实在找不到，可能是你的路由器不支持该功能(只要不是太老旧，都会有虚拟服务器这一功能的)</p>
+<h5 id="u7136_u540E"><a href="#u7136_u540E" class="headerlink" title="然后"></a>然后</h5><p>启用服务(一般默认关闭)，点击添加<br>参数填写：</p>
+<ul>
+<li>外部端口(就是外网访问的端口)：一般填 8080</li>
+<li>内部端口(就是路由解析映射的端口)：8080</li>
+<li>IP地址填路由器分给你的本机ip：例如我的是192.168.1.100</li>
+<li>协议类型：根据你的需求自行选择</li>
+</ul>
+<p><strong>注意</strong>：原则上外部端口和内部端口是可以随意填写的（有些端口系统占用无法使用），只要自己理清外网访问会映射到本地主机的那个端口就行了<br>就好比你明明外部端口设置为8080，内部端口为8080，但是本地(也就是内部)跑了一个3000端口的服务，然后你还傻乎乎的外网访问8080端口，得到的只能是<code>xx.xxx.xxx.xx拒绝了我们的连接请求</code></p>
+<p><strong>建议</strong>：内外端口一致免得记忆，如需多个端口，多添加几条映射关系，如下：<br><img src="/images/配置你的虚拟服务器/single.png" alt=""><br>如果你的路由器比较人性化,你会发现不需要填写什么外部端口内部端口，只需填写服务端口范围：<br><img src="/images/配置你的虚拟服务器/more1.png" alt="范围"><br>由此操作也就默认内外端口一致了，即本地跑了一个<code>XXXX</code>端口的服务，外网直接访问该端口就行<br><img src="/images/配置你的虚拟服务器/more2.png" alt="范围"></p>
+<h5 id="u6700_u540E"><a href="#u6700_u540E" class="headerlink" title="最后"></a>最后</h5><p>点击生效后，就可以在外网根据你的IP访问你的本地资源<br><strong>注意</strong>：此处的IP不是路由器分配给你的局域网IP，而是路由器的IP，可以在百度搜索关键字<code>IP</code>查询</p>
+<p><img src="/images/配置你的虚拟服务器/ip.png" alt="ip.png"></p>
+<p>我配置成功后在手机上用移动数据网络访问电脑的资源</p>
+<p><img src="/images/配置你的虚拟服务器/success.png" alt="success"></p>
+<p>当然要有如上效果，你还得掌握一定的服务器配置基础：</p>
+<ul>
+<li>怎么启动一个本地服务要会吧 比如<code>apahce</code>, <code>tomcate</code>, <code>node.js</code>什么的</li>
+<li>会一些HTML基础，那就可以美化以下访问界面了</li>
+</ul>
+<h3 id="u6700_u540E_u7684_u6700_u540E"><a href="#u6700_u540E_u7684_u6700_u540E" class="headerlink" title="最后的最后"></a>最后的最后</h3><p>感谢室友的路由器</p>
+
+  </article>
+  <div class="post-nav">
+    <div class="pre-post">
+      
+    </div>
+    <div class="next-post">
+      
+      <a href="/2016/06/05/赏心悦目的 Material Design/">
+          赏心悦目的 Material Design →
+      </a>
+      
+    </div>
+  </div>
+  <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/06/13/配置你的虚拟服务器/" data-title="配置你的虚拟服务器" data-url="http://yoursite.com/2016/06/13/配置你的虚拟服务器/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"huangxutao"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+</section>
+
+
+  <aside id="side-nav">
+  <!-- 关闭按钮 -->
+  <div class="close"></div>
+  <ul>
+    <!-- home -->
+    <li><a href="/">Home</a></li>
+    <!-- archives -->
+    <li><a href="/archives">archives</a></li>
+    <!-- categories -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Categories</a>
+      <ul>
+        
+        <li>
+          <a href="/categories/css/">css(2)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/javascript/">javascript(5)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/node/">node(1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/web/">web(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- tags -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Tags</a>
+      <ul>
+        
+        <li>
+          <a href="/tags/css/">css(2)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/css3/">css3(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/git/">git(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/html/">html(2)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/javascript/">javascript(5)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/mysql/">mysql(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/node/">node(1)</a>
+        </li>
+        
+        <li>
+          <a href="/tags/web/">web(1)</a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    <!-- links -->
+    
+    <li class="toggle-menu">
+      <input type="checkbox">
+      <a href="javascript:;">Links</a>
+        <ul class="sb-submenu">
+            
+            <li><a href="http://huangbingbing.com" target="_blank">炳炳</a></li>
+            
+            <li><a href="http://makaiqian.com" target="_blank">麻组</a></li>
+            
+            <li><a href="http://wangxinze.com" target="_blank">大表哥</a></li>
+            
+            <li><a href="http://zhouyutao.com" target="_blank">涛哥</a></li>
+            
+        </ul>
+    </li>
+    
+  </ul>
+</aside>
+
+  <footer class="footer">
+  <div class="copy">
+    <p>&copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By huangxutao. All Rights Reserved.</p>
+    <p>Theme By <a href="http://huangxutao.github.io/" target="_blank">elliot</a></p>
+  </div>
+  <div class="connect">
+    
+    <a href="http://weibo.com/u/2844827443" title="weibo" target="_blank" class="icon-weibo"></a>
+    
+
+    
+    <a href="https://github.com/huangxutao" title="Github" target="_blank" class="icon-github"></a>
+    
+
+    
+    <a href="https://www.facebook.com/profile.php?id=100009457792215" title="facebook" target="_blank" class="icon-facebook"></a>
+    
+
+    
+    <a href="https://twitter.com/huangxutao" title="twitter" target="_blank" class="icon-twitter"></a>
+    
+  </div>
+</footer>
+
+  <div id="to-top" class="none">&#xe60a;</div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
