@@ -2,47 +2,49 @@ var EventUtil={addHandler:function(e,t,n){e.addEventListener?e.addEventListener(
 
 
 (function(doc, win){
-  var wrapper = doc.createElement('div');
-  wrapper.className = 'msg-wrapper';
-  wrapper.innerHTML = '<div class="type-box"><p class="type-words">博客搬新家了，阅览2016-08-08之后的博文欢迎前往新站</p></div><p class="links"><a href="https://hxtao.site">https://hxtao.site</a></p><p class="links"><span id="stay-here">继续浏览之前的文章。。。</span></p>'
-  doc.body.appendChild(wrapper);
+  if(win.loacthion.pathname === '/') {
+    var wrapper = doc.createElement('div');
+    wrapper.className = 'msg-wrapper';
+    wrapper.innerHTML = '<div class="type-box"><p class="type-words">博客搬新家了，阅览2016-08-08之后的博文欢迎前往新站.</p></div><p class="links"><a href="https://hxtao.site">https://hxtao.site</a></p><p class="links"><span id="stay-here">继续浏览之前的文章。。。</span></p>'
+    doc.body.appendChild(wrapper);
 
-  var typeWords = doc.querySelector('.type-box');
-  var toTypeIn = function(words, speed, cb) {
-    var tmpWords = words.innerText;
-    var len = tmpWords.length;
-    var i = 0;
-    var timer = null;
+    var typeWords = doc.querySelector('.type-box');
+    var toTypeIn = function(words, speed, cb) {
+      var tmpWords = words.innerText;
+      var len = tmpWords.length;
+      var i = 0;
+      var timer = null;
     
-    words.children[0].innerText = '';
+      words.children[0].innerText = '';
     
-    timer = setInterval(function() {
-      words.children[0].innerText = tmpWords.substring(0, i);
-      if(i > len) {
-        clearInterval(timer);
-        cb ? cb() : cb = {};
-      } else {
-        i++;
+      timer = setInterval(function() {
+        words.children[0].innerText = tmpWords.substring(0, i);
+        if(i > len) {
+          clearInterval(timer);
+          cb ? cb() : cb = {};
+        } else {
+          i++;
+        }
+      }, speed);
+    
+    };
+
+    toTypeIn(typeWords, 220, function() {
+      typeWords.children[0].className = 'type-words flash';
+      var links = doc.querySelectorAll('.links');
+      for(var j = 0; j < links.length; j++) {
+      links[j].className = 'links fadeIn';
       }
-    }, speed);
-    
-  };
+    });
 
-  toTypeIn(typeWords, 220, function() {
-    typeWords.children[0].className = 'type-words flash';
-    var links = doc.querySelectorAll('.links');
-    for(var j = 0; j < links.length; j++) {
-    links[j].className = 'links fadeIn';
-    }
-  });
+    var stay_here = doc.getElementById('stay-here');
 
-  var stay_here = doc.getElementById('stay-here');
-
-  stay_here.addEventListener('click', function() {
-    wrapper.id = 'hide-msg-wrapper';
-    setTimeout(function() {
-      wrapper.style.display = 'none';
-    }, 1000);
-  }, false);
-
+    stay_here.addEventListener('click', function() {
+      wrapper.id = 'hide-msg-wrapper';
+      setTimeout(function() {
+        wrapper.style.display = 'none';
+      }, 1000);
+    }, false);
+  
+  }
 }(document, window));
