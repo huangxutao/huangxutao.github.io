@@ -578,3 +578,88 @@ pre .clojure .title {
 pre .deletion {
   color: #dc322f;
 }
+.msg-wrapper{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 40px 12px;
+  font-size: 22px;
+  background: rgba(53,189,178,.94);
+  box-sizing: border-box;
+  z-index: 9999999;
+  transition: all .6s ease;
+}
+
+.msg-wrapper p{
+  line-height: 1.8;
+  font-size: 22px;
+  color: #fff;
+  text-align: center;
+}
+
+.msg-wrapper a{
+  padding: 0 12px;
+  color: #673ab7;
+}
+
+.msg-wrapper p span{
+  display: block;
+  margin-top: 40px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#hide-msg-wrapper{
+  opacity: 0;
+  transition: all .6s ease;
+}
+
+.links{
+ opacity: 0;
+ transform: translateY(-40px);
+ transition: all .6s ease;
+}
+
+.fadeIn{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+.type-box{
+  font-size: 22px;
+  text-align: center;
+}
+
+.type-box .type-words{
+  position: relative;
+  display: inline-block;
+  padding-right: 6px;
+  line-height: 1.8;
+}
+
+.type-box .type-words:after{
+  position: absolute;
+  top: 0;
+  right: 0;
+  content: "";
+  width: 2px;
+  height: 100%;
+  background: #fff;
+}
+
+.flash:after{
+  animation: flash 1.2s ease infinite;
+}
+
+@keyframes flash{
+  0%{opacity: 1;}
+  49.99%{opacity: 1;}
+  50%{opacity: 0;}
+  100%{opacity: 0;}
+}
+
+
