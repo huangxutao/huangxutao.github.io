@@ -5,7 +5,7 @@ var EventUtil={addHandler:function(e,t,n){e.addEventListener?e.addEventListener(
   if(win.location.pathname === '/') {
     var wrapper = doc.createElement('div');
     wrapper.className = 'msg-wrapper';
-    wrapper.innerHTML = '<div class="type-box"><p class="type-words">博客搬新家了，阅览2016-08-08之后的博文欢迎前往新站.</p></div><p class="links"><a href="https://hxtao.site">https://hxtao.site</a></p><p class="links"><span id="stay-here">继续浏览之前的文章。。。</span></p>'
+    wrapper.innerHTML = '<div class="type-box"><p class="type-words">博客搬新家了，阅览2016-08-08之后的博文欢迎前往新站.</p></div><p class="links"><a href="https://hxtao.site">https://blog.hxtao.site</a></p><p class="links"><span id="stay-here">继续浏览之前的文章。。。</span></p>'
     doc.body.appendChild(wrapper);
 
     var typeWords = doc.querySelector('.type-box');
